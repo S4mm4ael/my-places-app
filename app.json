@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "react-native-workshop",
-    "slug": "react-native-workshop",
+    "slug": "rncourse",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ed789eca-d802-4cd5-b876-435ad6ac122b"
+      }
+    },
+    "owner": "s4mm4ael"
   }
 }
