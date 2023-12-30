@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 
 export default function App() {
   return (
@@ -10,6 +10,7 @@ export default function App() {
       <View>
         <Text>List of goals</Text>
       </View>
+      <Image source={require("./assets/icon.png")} />
     </View>
   );
 }
