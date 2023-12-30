@@ -9,8 +9,8 @@ export default function App() {
       </View>
       <View>
         <Text>List of goals</Text>
+        <Image source={require("./assets/icon.png")} />
       </View>
-      <Image source={require("./assets/icon.png")} />
     </View>
   );
 }
