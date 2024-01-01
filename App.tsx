@@ -1,4 +1,12 @@
-import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  FlatList,
+} from "react-native";
 
 export default function App() {
   return (
@@ -10,6 +18,12 @@ export default function App() {
       <View>
         <Text>List of goals</Text>
         <Image source={require("./assets/icon.png")} />
+      </View>
+      <View>
+        <FlatList
+          data={[{ key: "Devin" }, { key: "Sam" }]}
+          renderItem={({ item }) => <Text>{item.key}</Text>}
+        ></FlatList>
       </View>
     </View>
   );
