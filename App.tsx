@@ -4,8 +4,8 @@ import {
   Text,
   TextInput,
   View,
-  Image,
-  FlatList,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { useState } from "react";
 
@@ -23,41 +23,45 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Your goal"
-          style={styles.textInput}
-          value={text}
-          onChangeText={inputHandler}
-        />
-        <Button title="Add goal" onPress={inputButtonHandler} />
+    <SafeAreaView>
+      <View style={styles.appContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Your goal"
+            style={styles.textInput}
+            value={text}
+            onChangeText={inputHandler}
+          />
+          <Button title="Add" onPress={inputButtonHandler} />
+        </View>
+        <View>
+          <ScrollView style={styles.goalsContainer}>
+            {goals.map((goal, index) => (
+              <View key={index} style={styles.goalItem}>
+                <Text style={styles.goalText}>{goal}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </View>
-      <View style={styles.goalsContainer}>
-        {goals.map((goal, index) => (
-          <View key={index} style={styles.goalItem}>
-            <Text style={styles.goalText}>{goal}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   appContainer: {
-    padding: 40,
-    flex: 1,
-    gap: 10,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  goalsContainer: {
+    padding: 10,
     flexDirection: "column",
     gap: 10,
   },
+  inputContainer: {
+    height: 50,
+    flexDirection: "row",
+    paddingBottom: 10,
+    borderBottomColor: "grey",
+    borderBottomWidth: 1,
+  },
+  goalsContainer: {},
   textInput: {
     width: "80%",
     borderWidth: 1,
@@ -66,8 +70,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   goalItem: {
+    marginBottom: 8,
     borderRadius: 6,
-    padding: 8,
+    padding: 12,
     backgroundColor: "#5e0acc",
   },
   goalText: {
