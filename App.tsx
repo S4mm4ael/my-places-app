@@ -4,8 +4,8 @@ import {
   Text,
   TextInput,
   View,
-  ScrollView,
   SafeAreaView,
+  FlatList,
 } from "react-native";
 import { useState } from "react";
 
@@ -35,13 +35,18 @@ export default function App() {
           <Button title="Add" onPress={inputButtonHandler} />
         </View>
         <View>
-          <ScrollView style={styles.goalsContainer}>
-            {goals.map((goal, index) => (
-              <View key={index} style={styles.goalItem}>
-                <Text style={styles.goalText}>{goal}</Text>
-              </View>
-            ))}
-          </ScrollView>
+          <FlatList
+            data={goals}
+            style={styles.goalsContainer}
+            alwaysBounceVertical={false}
+            renderItem={(itemData) => {
+              return (
+                <View style={styles.goalItem}>
+                  <Text style={styles.goalText}>{itemData.item}</Text>
+                </View>
+              );
+            }}
+          ></FlatList>
         </View>
       </View>
     </SafeAreaView>
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   goalItem: {
-    marginBottom: 8,
+    marginBottom: 12,
     borderRadius: 6,
     padding: 12,
     backgroundColor: "#5e0acc",
