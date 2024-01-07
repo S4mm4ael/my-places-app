@@ -10,16 +10,19 @@ import {
 import { useState } from "react";
 
 export default function App() {
-  const [text, setText] = useState("");
-  const [goals, setGoals] = useState<Array<string>>([]);
+  const [goalText, setGoalText] = useState("");
+  const [goals, setGoals] = useState<Array<{ text: string; key: string }>>([]);
 
   function inputHandler(text: string) {
-    setText(text);
+    setGoalText(text);
   }
 
   function inputButtonHandler() {
-    setGoals((currentGoals) => [...currentGoals, text]);
-    setText("");
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      { text: goalText, key: Math.random().toString() },
+    ]);
+    setGoalText("");
   }
 
   return (
@@ -29,7 +32,7 @@ export default function App() {
           <TextInput
             placeholder="Your goal"
             style={styles.textInput}
-            value={text}
+            value={goalText}
             onChangeText={inputHandler}
           />
           <Button title="Add" onPress={inputButtonHandler} />
@@ -41,8 +44,8 @@ export default function App() {
             alwaysBounceVertical={false}
             renderItem={(itemData) => {
               return (
-                <View style={styles.goalItem}>
-                  <Text style={styles.goalText}>{itemData.item}</Text>
+                <View key={itemData.item.key} style={styles.goalItem}>
+                  <Text style={styles.goalText}>{itemData.item.text}</Text>
                 </View>
               );
             }}
