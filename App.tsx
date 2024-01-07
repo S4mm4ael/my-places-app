@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export default function App() {
   const [goalText, setGoalText] = useState("");
-  const [goals, setGoals] = useState<Array<{ text: string; key: string }>>([]);
+  const [goals, setGoals] = useState<Array<{ text: string; id: string }>>([]);
 
   function inputHandler(text: string) {
     setGoalText(text);
@@ -20,7 +20,7 @@ export default function App() {
   function inputButtonHandler() {
     setGoals((currentGoals) => [
       ...currentGoals,
-      { text: goalText, key: Math.random().toString() },
+      { text: goalText, id: Math.random().toString() },
     ]);
     setGoalText("");
   }
@@ -44,10 +44,13 @@ export default function App() {
             alwaysBounceVertical={false}
             renderItem={(itemData) => {
               return (
-                <View key={itemData.item.key} style={styles.goalItem}>
+                <View style={styles.goalItem}>
                   <Text style={styles.goalText}>{itemData.item.text}</Text>
                 </View>
               );
+            }}
+            keyExtractor={(item) => {
+              return item.id;
             }}
           ></FlatList>
         </View>
