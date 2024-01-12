@@ -6,8 +6,11 @@ import {
   View,
   SafeAreaView,
   FlatList,
+  ListRenderItemInfo,
 } from "react-native";
 import { useState } from "react";
+
+import GoalItem, { IItemData } from "./components/GoalItem";
 
 export default function App() {
   const [goalText, setGoalText] = useState("");
@@ -38,16 +41,12 @@ export default function App() {
           <Button title="Add" onPress={inputButtonHandler} />
         </View>
         <View>
-          <FlatList
+          <FlatList<IItemData>
             data={goals}
             style={styles.goalsContainer}
             alwaysBounceVertical={false}
-            renderItem={(itemData) => {
-              return (
-                <View style={styles.goalItem}>
-                  <Text style={styles.goalText}>{itemData.item.text}</Text>
-                </View>
-              );
+            renderItem={(itemData: ListRenderItemInfo<IItemData>) => {
+              return <GoalItem data={itemData} />;
             }}
             keyExtractor={(item) => {
               return item.id;
@@ -79,14 +78,5 @@ const styles = StyleSheet.create({
     borderColor: "#cccccc",
     marginRight: 8,
     padding: 8,
-  },
-  goalItem: {
-    marginBottom: 12,
-    borderRadius: 6,
-    padding: 12,
-    backgroundColor: "#5e0acc",
-  },
-  goalText: {
-    color: "#fff",
   },
 });
