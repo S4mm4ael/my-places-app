@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ListRenderItemInfo } from "react-native";
 
 export interface IItemData {
   text: string;
@@ -6,13 +6,13 @@ export interface IItemData {
 }
 
 interface GoalItemProps {
-  data: IItemData;
+  data: ListRenderItemInfo<IItemData>;
 }
 
 function GoalItem({ data }: GoalItemProps) {
   return (
     <View style={styles.goalItem}>
-      <Text style={styles.goalText}>{data.text}</Text>
+      <Text style={styles.goalText}>{data.item.text}</Text>
     </View>
   );
 }
