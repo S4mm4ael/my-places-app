@@ -6,13 +6,13 @@ export interface IItemData {
 }
 
 interface GoalItemProps {
-  data: ListRenderItemInfo<IItemData>;
+  data: IItemData;
 }
 
 function GoalItem({ data }: GoalItemProps) {
   return (
     <View style={styles.goalItem}>
-      <Text style={styles.goalText}>{data.item.text}</Text>
+      <Text style={styles.goalText}>{data.text}</Text>
     </View>
   );
 }

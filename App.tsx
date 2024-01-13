@@ -28,9 +28,7 @@ export default function App() {
     setGoalText("");
   }
 
-  const renderGoalItem = (itemData: ListRenderItemInfo<IItemData>) => (
-    <GoalItem data={itemData} />
-  );
+  const renderGoalItem = (data: IItemData) => <GoalItem data={data} />;
 
   return (
     <SafeAreaView>
@@ -49,7 +47,7 @@ export default function App() {
             data={goals}
             style={styles.goalsContainer}
             alwaysBounceVertical={false}
-            renderItem={(goalItem) => renderGoalItem(goalItem)}
+            renderItem={(goalItem) => renderGoalItem(goalItem.item)}
             keyExtractor={(item) => {
               return item.id;
             }}
