@@ -33,15 +33,7 @@ export default function App() {
   return (
     <SafeAreaView>
       <View style={styles.appContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Your goal"
-            style={styles.textInput}
-            value={goalText}
-            onChangeText={inputHandler}
-          />
-          <Button title="Add" onPress={inputButtonHandler} />
-        </View>
+        <View style={styles.inputContainer}></View>
         <View>
           <FlatList<IItemData>
             data={goals}
@@ -72,11 +64,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   goalsContainer: {},
-  textInput: {
-    width: "80%",
-    borderWidth: 1,
-    borderColor: "#cccccc",
-    marginRight: 8,
-    padding: 8,
-  },
 });
