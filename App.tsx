@@ -11,19 +11,15 @@ import {
 import { useState } from "react";
 
 import GoalItem, { IItemData } from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [goalText, setGoalText] = useState("");
   const [goals, setGoals] = useState<Array<{ text: string; id: string }>>([]);
 
-  function inputHandler(text: string) {
-    setGoalText(text);
-  }
-
-  function inputButtonHandler() {
+  function inputButtonHandler(enteredText) {
     setGoals((currentGoals) => [
       ...currentGoals,
-      { text: goalText, id: Math.random().toString() },
+      { text: enteredText, id: Math.random().toString() },
     ]);
     setGoalText("");
   }
@@ -33,7 +29,11 @@ export default function App() {
   return (
     <SafeAreaView>
       <View style={styles.appContainer}>
-        <View style={styles.inputContainer}></View>
+        <GoalInput
+          onInput={inputHandler}
+          onAdd={inputButtonHandler}
+          text={goalText}
+        />
         <View>
           <FlatList<IItemData>
             data={goals}
@@ -55,13 +55,6 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "column",
     gap: 10,
-  },
-  inputContainer: {
-    height: 50,
-    flexDirection: "row",
-    paddingBottom: 10,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
   },
   goalsContainer: {},
 });
