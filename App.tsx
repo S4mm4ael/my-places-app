@@ -5,7 +5,12 @@ import GoalItem, { IItemData } from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
 export default function App() {
+  const [showModal, setShowModal] = useState(false);
   const [goals, setGoals] = useState<Array<{ text: string; id: string }>>([]);
+
+  function startAddGoalHandling() {
+    setShowModal(true);
+  }
 
   function inputButtonHandler(enteredText: string) {
     setGoals((currentGoals) => [
@@ -27,8 +32,12 @@ export default function App() {
   return (
     <SafeAreaView>
       <View style={styles.appContainer}>
-        <Button title="Add new goal" />
-        <GoalInput onAdd={inputButtonHandler} />
+        <Button
+          title="Add new goal"
+          color={"#5e0acc"}
+          onPress={startAddGoalHandling}
+        />
+        <GoalInput isVisible={showModal} onAdd={inputButtonHandler} />
         <View>
           <FlatList<IItemData>
             data={goals}
@@ -47,9 +56,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    flex: 1,
     gap: 10,
-    padding: 10,
+    paddingTop: 50,
   },
   goalsContainer: {},
 });

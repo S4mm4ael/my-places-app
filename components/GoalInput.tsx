@@ -9,10 +9,11 @@ import {
 } from "react-native";
 
 interface GoalInputProps {
+  isVisible: boolean;
   onAdd: (enteredText: string) => void;
 }
 
-function GoalInput({ onAdd }: GoalInputProps) {
+function GoalInput({ isVisible, onAdd }: GoalInputProps) {
   const [goalText, setGoalText] = useState("");
 
   function inputHandler(text: string) {
@@ -25,7 +26,7 @@ function GoalInput({ onAdd }: GoalInputProps) {
   }
 
   return (
-    <Modal>
+    <Modal visible={isVisible} animationType="slide">
       <SafeAreaView>
         <View style={styles.inputContainer}>
           <TextInput
