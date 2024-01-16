@@ -12,11 +12,16 @@ export default function App() {
     setShowModal(true);
   }
 
+  function endAddGoalHandling() {
+    setShowModal(false);
+  }
+
   function inputButtonHandler(enteredText: string) {
     setGoals((currentGoals) => [
       ...currentGoals,
       { text: enteredText, id: Math.random().toString() },
     ]);
+    endAddGoalHandling();
   }
 
   function handleGoalDelete(id: string) {
@@ -37,7 +42,11 @@ export default function App() {
           color={"#5e0acc"}
           onPress={startAddGoalHandling}
         />
-        <GoalInput isVisible={showModal} onAdd={inputButtonHandler} />
+        <GoalInput
+          isVisible={showModal}
+          onAdd={inputButtonHandler}
+          onCancel={endAddGoalHandling}
+        />
         <View>
           <FlatList<IItemData>
             data={goals}
@@ -58,6 +67,7 @@ const styles = StyleSheet.create({
   appContainer: {
     gap: 10,
     paddingTop: 50,
+    paddingHorizontal: 10,
   },
   goalsContainer: {},
 });

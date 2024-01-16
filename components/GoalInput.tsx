@@ -6,14 +6,16 @@ import {
   StyleSheet,
   Modal,
   SafeAreaView,
+  Image,
 } from "react-native";
 
 interface GoalInputProps {
   isVisible: boolean;
   onAdd: (enteredText: string) => void;
+  onCancel: () => void;
 }
 
-function GoalInput({ isVisible, onAdd }: GoalInputProps) {
+function GoalInput({ isVisible, onAdd, onCancel }: GoalInputProps) {
   const [goalText, setGoalText] = useState("");
 
   function inputHandler(text: string) {
@@ -27,15 +29,26 @@ function GoalInput({ isVisible, onAdd }: GoalInputProps) {
 
   return (
     <Modal visible={isVisible} animationType="slide">
-      <SafeAreaView>
+      <SafeAreaView style={styles.goalInputSafeContainer}>
         <View style={styles.inputContainer}>
+          <Image
+            source={require("../assets/images/target.png")}
+            style={styles.image}
+          />
           <TextInput
             placeholder="Your goal"
             style={styles.textInput}
             value={goalText}
             onChangeText={inputHandler}
           />
-          <Button title="Add" onPress={addGoal} />
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Button title="Add" onPress={addGoal} />
+            </View>
+            <View style={styles.button}>
+              <Button title="Cancel" onPress={onCancel} />
+            </View>
+          </View>
         </View>
       </SafeAreaView>
     </Modal>
@@ -45,20 +58,37 @@ function GoalInput({ isVisible, onAdd }: GoalInputProps) {
 export default GoalInput;
 
 const styles = StyleSheet.create({
+  goalInputSafeContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
   inputContainer: {
-    height: 50,
-    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     paddingBottom: 10,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
   },
   textInput: {
-    width: "80%",
+    width: "100%",
     borderWidth: 1,
     borderColor: "#cccccc",
     marginRight: 8,
     padding: 8,
+  },
+  image: {
+    margin: 20,
+    width: 100,
+    height: 100,
+  },
+  buttonContainer: {
+    width: "100%",
+    marginTop: 16,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "space-around",
+  },
+  button: {
+    marginHorizontal: 8,
+    width: "40%",
   },
 });
