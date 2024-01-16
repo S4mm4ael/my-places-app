@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, View, SafeAreaView, FlatList, Button } from "react-native";
 import { useState } from "react";
 
 import GoalItem, { IItemData } from "./components/GoalItem";
@@ -27,6 +27,7 @@ export default function App() {
   return (
     <SafeAreaView>
       <View style={styles.appContainer}>
+        <Button title="Add new goal" />
         <GoalInput onAdd={inputButtonHandler} />
         <View>
           <FlatList<IItemData>
@@ -46,9 +47,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    padding: 10,
-    flexDirection: "column",
+    flex: 1,
     gap: 10,
+    padding: 10,
   },
   goalsContainer: {},
 });
