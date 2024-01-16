@@ -12,11 +12,15 @@ interface GoalItemProps {
 
 function GoalItem({ data, deleteItem }: GoalItemProps) {
   return (
-    <Pressable onPress={() => deleteItem(data.id)}>
-      <View style={styles.goalItem}>
+    <View style={styles.goalItem}>
+      <Pressable
+        android_ripple={{ color: "#dddddd" }}
+        onPress={() => deleteItem(data.id)}
+        style={({ pressed }) => pressed && styles.goalItem__pressed}
+      >
         <Text style={styles.goalText}>{data.text}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
 
@@ -26,10 +30,13 @@ const styles = StyleSheet.create({
   goalItem: {
     marginBottom: 12,
     borderRadius: 6,
-    padding: 12,
     backgroundColor: "#5e0acc",
   },
+  goalItem__pressed: {
+    opacity: 0.5,
+  },
   goalText: {
+    padding: 12,
     color: "#fff",
   },
 });
