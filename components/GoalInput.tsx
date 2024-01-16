@@ -5,7 +5,7 @@ interface GoalInputProps {
   onAdd: (enteredText: string) => void;
 }
 
-function GoalInput(props: GoalInputProps) {
+function GoalInput({ onAdd }: GoalInputProps) {
   const [goalText, setGoalText] = useState("");
 
   function inputHandler(text: string) {
@@ -13,7 +13,7 @@ function GoalInput(props: GoalInputProps) {
   }
 
   function addGoal() {
-    props.onAdd(goalText);
+    onAdd(goalText);
     setGoalText("");
   }
 
