@@ -14,7 +14,11 @@ export default function App() {
     ]);
   }
 
-  function handleGoalDelete() {}
+  function handleGoalDelete(id: string) {
+    setGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== id);
+    });
+  }
 
   const renderGoalItem = (data: IItemData) => (
     <GoalItem data={data} deleteItem={handleGoalDelete} />

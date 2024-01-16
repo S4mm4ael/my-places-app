@@ -7,12 +7,12 @@ export interface IItemData {
 
 interface GoalItemProps {
   data: IItemData;
-  deleteItem: () => void;
+  deleteItem: (id: string) => void;
 }
 
 function GoalItem({ data, deleteItem }: GoalItemProps) {
   return (
-    <Pressable onPress={deleteItem}>
+    <Pressable onPress={() => deleteItem(data.id)}>
       <View style={styles.goalItem}>
         <Text style={styles.goalText}>{data.text}</Text>
       </View>
