@@ -1,13 +1,4 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  SafeAreaView,
-  FlatList,
-  ListRenderItemInfo,
-} from "react-native";
+import { StyleSheet, View, SafeAreaView, FlatList } from "react-native";
 import { useState } from "react";
 
 import GoalItem, { IItemData } from "./components/GoalItem";
@@ -16,24 +7,23 @@ import GoalInput from "./components/GoalInput";
 export default function App() {
   const [goals, setGoals] = useState<Array<{ text: string; id: string }>>([]);
 
-  function inputButtonHandler(enteredText) {
+  function inputButtonHandler(enteredText: string) {
     setGoals((currentGoals) => [
       ...currentGoals,
       { text: enteredText, id: Math.random().toString() },
     ]);
-    setGoalText("");
   }
 
-  const renderGoalItem = (data: IItemData) => <GoalItem data={data} />;
+  function handleGoalDelete() {}
+
+  const renderGoalItem = (data: IItemData) => (
+    <GoalItem data={data} deleteItem={handleGoalDelete} />
+  );
 
   return (
     <SafeAreaView>
       <View style={styles.appContainer}>
-        <GoalInput
-          onInput={inputHandler}
-          onAdd={inputButtonHandler}
-          text={goalText}
-        />
+        <GoalInput onAdd={inputButtonHandler} />
         <View>
           <FlatList<IItemData>
             data={goals}

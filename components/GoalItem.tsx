@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ListRenderItemInfo } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 export interface IItemData {
   text: string;
@@ -7,13 +7,16 @@ export interface IItemData {
 
 interface GoalItemProps {
   data: IItemData;
+  deleteItem: () => void;
 }
 
-function GoalItem({ data }: GoalItemProps) {
+function GoalItem({ data, deleteItem }: GoalItemProps) {
   return (
-    <View style={styles.goalItem}>
-      <Text style={styles.goalText}>{data.text}</Text>
-    </View>
+    <Pressable onPress={deleteItem}>
+      <View style={styles.goalItem}>
+        <Text style={styles.goalText}>{data.text}</Text>
+      </View>
+    </Pressable>
   );
 }
 
