@@ -1,5 +1,6 @@
 import { StyleSheet, View, SafeAreaView, FlatList, Button } from "react-native";
 import { useState } from "react";
+import { StatusBar } from "expo-status-bar";
 
 import GoalItem, { IItemData } from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
@@ -35,38 +36,40 @@ export default function App() {
   );
 
   return (
-    <SafeAreaView>
-      <View style={styles.appContainer}>
-        <Button
-          title="Add new goal"
-          color={"#5e0acc"}
-          onPress={startAddGoalHandling}
-        />
-        <GoalInput
-          isVisible={showModal}
-          onAdd={inputButtonHandler}
-          onCancel={endAddGoalHandling}
-        />
-        <View>
-          <FlatList<IItemData>
-            data={goals}
-            style={styles.goalsContainer}
-            alwaysBounceVertical={false}
-            renderItem={(goalItem) => renderGoalItem(goalItem.item)}
-            keyExtractor={(item) => {
-              return item.id;
-            }}
-          ></FlatList>
+    <>
+      <StatusBar style="dark" />
+      <SafeAreaView>
+        <View style={styles.appContainer}>
+          <Button
+            title="Add new goal"
+            color={"#5e0acc"}
+            onPress={startAddGoalHandling}
+          />
+          <GoalInput
+            isVisible={showModal}
+            onAdd={inputButtonHandler}
+            onCancel={endAddGoalHandling}
+          />
+          <View>
+            <FlatList<IItemData>
+              data={goals}
+              style={styles.goalsContainer}
+              alwaysBounceVertical={false}
+              renderItem={(goalItem) => renderGoalItem(goalItem.item)}
+              keyExtractor={(item) => {
+                return item.id;
+              }}
+            ></FlatList>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   appContainer: {
     gap: 10,
-    paddingTop: 50,
     paddingHorizontal: 10,
   },
   goalsContainer: {},

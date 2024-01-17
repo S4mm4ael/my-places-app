@@ -5,7 +5,6 @@ import {
   Button,
   StyleSheet,
   Modal,
-  SafeAreaView,
   Image,
 } from "react-native";
 
@@ -29,28 +28,26 @@ function GoalInput({ isVisible, onAdd, onCancel }: GoalInputProps) {
 
   return (
     <Modal visible={isVisible} animationType="slide">
-      <SafeAreaView style={styles.goalInputSafeContainer}>
-        <View style={styles.inputContainer}>
-          <Image
-            source={require("../assets/images/target.png")}
-            style={styles.image}
-          />
-          <TextInput
-            placeholder="Your goal"
-            style={styles.textInput}
-            value={goalText}
-            onChangeText={inputHandler}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button title="Add" onPress={addGoal} />
-            </View>
-            <View style={styles.button}>
-              <Button title="Cancel" onPress={onCancel} />
-            </View>
+      <View style={styles.inputContainer}>
+        <Image
+          source={require("../assets/images/target.png")}
+          style={styles.image}
+        />
+        <TextInput
+          placeholder="Your goal"
+          style={styles.textInput}
+          value={goalText}
+          onChangeText={inputHandler}
+        />
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Add" onPress={addGoal} color={"#8fce00"} />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={onCancel} color={"#E53D00"} />
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     </Modal>
   );
 }
@@ -63,17 +60,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputContainer: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "space-between",
+    paddingTop: 100,
     paddingHorizontal: 16,
     paddingBottom: 10,
+    backgroundColor: "#8e7cc3",
   },
   textInput: {
     width: "100%",
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: "#b4a7d6",
+    color: "#ffffff",
     marginRight: 8,
-    padding: 8,
+    padding: 16,
+    borderRadius: 6,
   },
   image: {
     margin: 20,
