@@ -1,8 +1,6 @@
-import { StyleSheet, View, SafeAreaView, FlatList, Button } from "react-native";
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 
-import GoalInput from "./components/GoalInput";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   return (
