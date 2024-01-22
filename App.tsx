@@ -70,6 +70,7 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     gap: 10,
+    paddingVertical: 50,
     paddingHorizontal: 10,
   },
   goalsContainer: {},
