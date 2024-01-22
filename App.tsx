@@ -1,22 +1,9 @@
-import { StyleSheet, View, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 
-import { StatusBar } from "expo-status-bar";
+import StartGameScreen from "./screens/StartGameScreen";
 
 export default function App() {
-  return (
-    <>
-      <StatusBar style="dark" />
-      <SafeAreaView>
-        <View style={styles.appContainer}></View>
-      </SafeAreaView>
-    </>
-  );
+  return <StartGameScreen />;
 }
 
-const styles = StyleSheet.create({
-  appContainer: {
-    gap: 10,
-    paddingVertical: 50,
-    paddingHorizontal: 10,
-  },
-});
+const styles = StyleSheet.create({});
