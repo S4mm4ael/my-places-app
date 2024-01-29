@@ -2,12 +2,14 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface IPrimaryButtonProps {
   buttonText: string;
+  onPress: () => void;
 }
 
-function PrimaryButton({ buttonText }: IPrimaryButtonProps) {
+function PrimaryButton({ buttonText, onPress }: IPrimaryButtonProps) {
   return (
     <View style={styles.primaryButtonOuterContainer}>
       <Pressable
+        onPress={onPress}
         style={({ pressed }) =>
           pressed
             ? [styles.pressed, styles.primaryButtonInnerContainer]
