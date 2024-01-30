@@ -17,6 +17,7 @@ export default function GameScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    height: 100,
     padding: 16,
   },
 });
