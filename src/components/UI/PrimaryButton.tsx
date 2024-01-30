@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../global/constatnts";
+import { colors } from "../../global/constatnts";
 
 interface IPrimaryButtonProps {
   buttonText: string;
