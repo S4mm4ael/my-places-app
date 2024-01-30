@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
+import { colors } from "../global/constatnts";
 
 interface StartGameScreenProps {
   onPickNumber: (pickedNumber: number) => void;
@@ -61,11 +62,11 @@ const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: "center",
     height: 150,
+    backgroundColor: colors.PrimeRed,
     alignItems: "center",
     marginTop: 64,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: "#72063c",
     borderRadius: 8,
     //Android specific:
     elevation: 4,
@@ -85,9 +86,9 @@ const styles = StyleSheet.create({
     height: 56,
     width: 56,
     fontSize: 32,
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: colors.PrimeYellow,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: colors.PrimeYellow,
     marginVertical: 8,
     fontWeight: "bold",
     textAlign: "center",
