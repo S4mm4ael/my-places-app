@@ -9,7 +9,7 @@ interface NumberContainerProps {
 export function NumberContainer({ number }: NumberContainerProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.container}>{number}</Text>
+      <Text style={styles.numberText}>{number}</Text>
     </View>
   );
 }
