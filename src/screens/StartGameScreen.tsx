@@ -12,6 +12,7 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
 
   function numberInputHandler(enteredText: string) {
     setEnteredNumber(enteredText);
+    console.log(enteredNumber);
   }
 
   function resetInputHandler() {
