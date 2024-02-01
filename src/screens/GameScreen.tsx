@@ -12,10 +12,6 @@ export default function GameScreen({ userNumber }: GameScreenProps) {
   const initialGuess = generateRandomNumberBetween(1, 100, userNumber);
   const [currentGuess, setCurrenGuess] = useState();
 
-  useEffect(() => {
-    console.log(userNumber);
-  }, [userNumber]);
-
   return (
     <View style={styles.screen}>
       <Title text="Opponent Guess" />

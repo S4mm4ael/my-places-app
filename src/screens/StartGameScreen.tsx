@@ -12,7 +12,6 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
 
   function numberInputHandler(enteredText: string) {
     setEnteredNumber(enteredText);
-    console.log(enteredNumber);
   }
 
   function resetInputHandler() {
@@ -21,7 +20,7 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
 
   function submitInputHandler() {
     const chosenNumber = parseInt(enteredNumber);
-
+    console.log("submit", enteredNumber);
     if (chosenNumber <= 0 || chosenNumber > 99) {
       Alert.alert(
         "Invalid number!",
