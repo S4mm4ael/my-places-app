@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Title } from "../components/UI/Title";
 import { NumberContainer } from "../components/game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import Card from "../components/UI/Card";
 
 interface GameScreenProps {
   userNumber: number;
@@ -54,7 +55,7 @@ export default function GameScreen({
   }
 
   return (
-    <View style={styles.screen}>
+    <Card>
       <Title text="Opponent Guess" />
       <NumberContainer number={currentGuess} />
       <View>
@@ -70,7 +71,7 @@ export default function GameScreen({
           />
         </View>
       </View>
-    </View>
+    </Card>
   );
 }
 
