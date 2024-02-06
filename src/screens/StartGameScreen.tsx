@@ -5,6 +5,7 @@ import { colors } from "../global/constatnts";
 import { Title } from "../components/UI/Title";
 import Card from "../components/UI/Card";
 import InstructionText from "../components/UI/InstructionText";
+import HorizontalButtonsContainer from "../components/UI/HorizontalButtonsContainer";
 
 interface StartGameScreenProps {
   onPickNumber: (pickedNumber: number) => void;
@@ -23,7 +24,6 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
 
   function submitInputHandler() {
     const chosenNumber = parseInt(enteredNumber);
-    console.log("submit", enteredNumber);
     if (chosenNumber <= 0 || chosenNumber > 99) {
       Alert.alert(
         "Invalid number!",
@@ -50,14 +50,14 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
           onChangeText={numberInputHandler}
           value={enteredNumber}
         />
-        <View style={styles.buttonsContainer}>
+        <HorizontalButtonsContainer>
           <View style={styles.buttonContainer}>
             <PrimaryButton buttonText="Reset" onPress={resetInputHandler} />
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton buttonText="Confirm" onPress={submitInputHandler} />
           </View>
-        </View>
+        </HorizontalButtonsContainer>
       </Card>
     </View>
   );
@@ -70,9 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 50,
     alignItems: "center",
-  },
-  buttonsContainer: {
-    flexDirection: "row",
   },
   buttonContainer: {
     flex: 1,

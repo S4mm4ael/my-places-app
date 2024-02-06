@@ -1,13 +1,14 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { colors } from "../../global/constatnts";
 
 interface InstructionTextProps {
   text: string;
+  style?: StyleProp<ViewStyle>;
 }
 
-function InstructionText({ text }: InstructionTextProps) {
-  return <Text style={styles.instructionText}>{text}</Text>;
+function InstructionText({ text, style }: InstructionTextProps) {
+  return <Text style={[styles.instructionText, style]}>{text}</Text>;
 }
 
 export default InstructionText;

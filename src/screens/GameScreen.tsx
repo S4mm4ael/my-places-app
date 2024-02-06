@@ -5,6 +5,8 @@ import { Title } from "../components/UI/Title";
 import { NumberContainer } from "../components/game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
 import Card from "../components/UI/Card";
+import HorizontalButtonsContainer from "../components/UI/HorizontalButtonsContainer";
+import InstructionText from "../components/UI/InstructionText";
 
 interface GameScreenProps {
   userNumber: number;
@@ -55,29 +57,43 @@ export default function GameScreen({
   }
 
   return (
-    <Card>
+    <View style={styles.screen}>
       <Title text="Opponent Guess" />
       <NumberContainer number={currentGuess} />
-      <View>
-        <Text>Higher or lower</Text>
-        <View>
-          <PrimaryButton
-            buttonText="-"
-            onPress={() => nextGuessHandler("lower")}
-          />
-          <PrimaryButton
-            buttonText="+"
-            onPress={() => nextGuessHandler("higher")}
-          />
-        </View>
-      </View>
-    </Card>
+      <Card>
+        <InstructionText
+          text="Higher or lover"
+          style={styles.instructionText}
+        />
+        <HorizontalButtonsContainer>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              buttonText="-"
+              onPress={() => nextGuessHandler("lower")}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              buttonText="+"
+              onPress={() => nextGuessHandler("higher")}
+            />
+          </View>
+        </HorizontalButtonsContainer>
+      </Card>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    alignItems: "center",
     paddingTop: 30,
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  instructionText: {
+    marginBottom: 10,
   },
 });
