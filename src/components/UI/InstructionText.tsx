@@ -15,7 +15,7 @@ export default InstructionText;
 
 const styles = StyleSheet.create({
   instructionText: {
-    fontSize: 18,
+    fontSize: 24,
     color: colors.PrimeYellow,
   },
 });

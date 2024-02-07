@@ -55,13 +55,13 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
         <InstructionText text="Higher or lover" style={styles.instructionText} />
         <HorizontalButtonsContainer>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={() => nextGuessHandler("lower")}>
-              <Ionicons name="md-remove" size={24} color={colors.White} />
+            <Pressable style={styles.button} onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="md-remove" size={32} color={colors.White} />
             </Pressable>
           </View>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={() => nextGuessHandler("higher")}>
-              <Ionicons name="md-add" size={24} color={colors.White} />
+            <Pressable style={styles.button} onPress={() => nextGuessHandler("higher")}>
+              <Ionicons name="md-add" size={32} color={colors.White} />
             </Pressable>
           </View>
         </HorizontalButtonsContainer>
@@ -76,10 +76,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 30,
   },
+
   buttonContainer: {
     flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
   },
   instructionText: {
-    marginBottom: 10,
+    marginBottom: 30,
+  },
+  button: {
+    alignItems: "center",
   },
 });
