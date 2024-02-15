@@ -5,7 +5,7 @@ import { colors } from "../global/constatnts";
 import PrimaryButton from "../components/UI/PrimaryButton";
 
 interface GameOverScreenProps {
-  roundsNumber: string;
+  roundsNumber: number;
   userNumber: number;
   onStartNewGame: () => void;
 }

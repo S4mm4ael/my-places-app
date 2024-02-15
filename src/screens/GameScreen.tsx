@@ -10,10 +10,11 @@ import Card from "../components/UI/Card";
 import HorizontalButtonsContainer from "../components/UI/HorizontalButtonsContainer";
 import InstructionText from "../components/UI/InstructionText";
 import { colors } from "../global/constatnts";
+import GuessNumberItem from "../components/game/GuessNumberItem";
 
 interface GameScreenProps {
   userNumber: number;
-  onGameOver: () => void;
+  onGameOver: (numberOfRounds: number) => void;
 }
 
 let minBoundary = 1;
@@ -25,9 +26,11 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
   const [currentGuess, setCurrenGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
+  const guessRoundsListLenght = guessRounds.length;
+
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
 
@@ -73,10 +76,15 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
           </View>
         </HorizontalButtonsContainer>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={guessRounds}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          renderItem={(itemData) => (
+            <GuessNumberItem
+              guess={itemData.item}
+              roundNumber={guessRoundsListLenght - itemData.index}
+            />
+          )}
           keyExtractor={(item) => String(item)}
         />
       </View>
@@ -89,8 +97,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 30,
+    paddingHorizontal: 10,
   },
-
   buttonContainer: {
     flex: 1,
     alignContent: "center",
@@ -101,5 +109,8 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
+  },
+  listContainer: {
+    flex: 1,
   },
 });
