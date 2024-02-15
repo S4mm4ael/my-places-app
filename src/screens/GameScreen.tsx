@@ -20,7 +20,7 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) {
-  const initialGuess = useMemo(() => generateRandomNumberBetween(1, 100, userNumber), [userNumber]);
+  const initialGuess = generateRandomNumberBetween(1, 100, userNumber);
 
   const [currentGuess, setCurrenGuess] = useState(initialGuess);
 

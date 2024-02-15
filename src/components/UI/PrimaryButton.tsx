@@ -3,7 +3,7 @@ import { colors } from "../../global/constatnts";
 
 interface IPrimaryButtonProps {
   buttonText: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 function PrimaryButton({ buttonText, onPress }: IPrimaryButtonProps) {
