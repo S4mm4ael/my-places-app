@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Alert, Pressable } from "react-native";
+import { Text, View, StyleSheet, Alert, Pressable, FlatList } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { generateRandomNumberBetween } from "../utils/helpers/generateRandomNumber";
@@ -23,6 +23,7 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
   const initialGuess = generateRandomNumberBetween(1, 100, userNumber);
 
   const [currentGuess, setCurrenGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -50,6 +51,7 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
     }
     const newRndNumber = generateRandomNumberBetween(minBoundary, maxBoundary, currentGuess);
     setCurrenGuess(newRndNumber);
+    setGuessRounds((prev) => [newRndNumber, ...prev]);
   }
 
   return (
@@ -71,6 +73,13 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
           </View>
         </HorizontalButtonsContainer>
       </Card>
+      <View>
+        <FlatList
+          data={guessRounds}
+          renderItem={({ item }) => <Text>{item}</Text>}
+          keyExtractor={(item) => String(item)}
+        />
+      </View>
     </View>
   );
 }
