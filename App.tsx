@@ -20,8 +20,8 @@ export default function App() {
     }
   }, [fontsLoaded, fontError]);
 
-  const [userNumber, setUserNumber] = useState<number>();
-  const [gameIsOver, setGameIsOver] = useState<boolean>();
+  const [userNumber, setUserNumber] = useState<number>(2);
+  const [gameIsOver, setGameIsOver] = useState<boolean>(true);
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 

@@ -15,12 +15,11 @@ export default Card;
 const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: "center",
-    height: 150,
     backgroundColor: colors.PrimeRed,
     alignItems: "center",
     marginTop: 64,
     marginHorizontal: 24,
-    padding: 16,
+    padding: 20,
     borderRadius: 8,
     //Android specific:
     elevation: 4,
