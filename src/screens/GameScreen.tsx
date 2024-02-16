@@ -65,14 +65,16 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
         <InstructionText text="Higher or lover" style={styles.instructionText} />
         <HorizontalButtonsContainer>
           <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={() => nextGuessHandler("lower")}>
-              <Ionicons name="md-remove" size={32} color={colors.White} />
-            </Pressable>
+            <PrimaryButton
+              onPress={() => nextGuessHandler("lower")}
+              childComponent={<Ionicons name="md-remove" size={32} color={colors.White} />}
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={() => nextGuessHandler("higher")}>
-              <Ionicons name="md-add" size={32} color={colors.White} />
-            </Pressable>
+            <PrimaryButton
+              onPress={() => nextGuessHandler("lower")}
+              childComponent={<Ionicons name="md-remove" size={32} color={colors.White} />}
+            />
           </View>
         </HorizontalButtonsContainer>
       </Card>

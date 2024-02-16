@@ -25,11 +25,9 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
   function submitInputHandler() {
     const chosenNumber = parseInt(enteredNumber);
     if (chosenNumber <= 0 || chosenNumber > 99) {
-      Alert.alert(
-        "Invalid number!",
-        "Number has to be a number between 1 and 99",
-        [{ text: "Okay", style: "destructive", onPress: resetInputHandler }]
-      );
+      Alert.alert("Invalid number!", "Number has to be a number between 1 and 99", [
+        { text: "Okay", style: "destructive", onPress: resetInputHandler },
+      ]);
       return;
     }
 
@@ -52,10 +50,10 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
         />
         <HorizontalButtonsContainer>
           <View style={styles.buttonContainer}>
-            <PrimaryButton buttonText="Reset" onPress={resetInputHandler} />
+            <PrimaryButton childComponent={<Text>Reset</Text>} onPress={resetInputHandler} />
           </View>
           <View style={styles.buttonContainer}>
-            <PrimaryButton buttonText="Confirm" onPress={submitInputHandler} />
+            <PrimaryButton childComponent={<Text>Confirm</Text>} onPress={submitInputHandler} />
           </View>
         </HorizontalButtonsContainer>
       </Card>
