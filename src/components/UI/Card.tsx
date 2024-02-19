@@ -14,10 +14,10 @@ export default Card;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    width: "95%",
     justifyContent: "center",
     backgroundColor: colors.PrimeRed,
     alignItems: "center",
-    marginTop: 64,
     marginHorizontal: 24,
     padding: 20,
     borderRadius: 8,

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../global/constatnts";
 
 interface NumberContainerProps {
@@ -14,11 +14,13 @@ export function NumberContainer({ number }: NumberContainerProps) {
   );
 }
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,
     borderColor: colors.White,
-    padding: 24,
+    padding: deviceWidth < 450 ? 12 : 24,
     margin: 24,
     borderRadius: 8,
     alignItems: "center",

@@ -21,6 +21,6 @@ const styles = StyleSheet.create({
     borderColor: colors.White,
     padding: 8,
     marginBottom: 8,
-    width: "90%",
+    maxWidth: "90%",
   },
 });

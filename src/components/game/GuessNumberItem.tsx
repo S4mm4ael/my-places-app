@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.SecondaryRed,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
+    width: "83%",
     elevation: 4,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 0 },
