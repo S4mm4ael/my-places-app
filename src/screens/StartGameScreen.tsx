@@ -50,10 +50,16 @@ function StartGameScreen({ onPickNumber }: StartGameScreenProps) {
         />
         <HorizontalButtonsContainer>
           <View style={styles.buttonContainer}>
-            <PrimaryButton childComponent={<Text>Reset</Text>} onPress={resetInputHandler} />
+            <PrimaryButton
+              childComponent={<Text style={styles.buttonText}>Reset</Text>}
+              onPress={resetInputHandler}
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <PrimaryButton childComponent={<Text>Confirm</Text>} onPress={submitInputHandler} />
+            <PrimaryButton
+              childComponent={<Text style={styles.buttonText}>Confirm</Text>}
+              onPress={submitInputHandler}
+            />
           </View>
         </HorizontalButtonsContainer>
       </Card>
@@ -81,6 +87,11 @@ const styles = StyleSheet.create({
     color: colors.PrimeYellow,
     marginVertical: 8,
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  buttonText: {
+    color: colors.White,
+    fontSize: 16,
     textAlign: "center",
   },
 });
