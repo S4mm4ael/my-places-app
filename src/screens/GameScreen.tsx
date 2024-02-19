@@ -72,8 +72,8 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton
-              onPress={() => nextGuessHandler("lower")}
-              childComponent={<Ionicons name="md-remove" size={32} color={colors.White} />}
+              onPress={() => nextGuessHandler("higher")}
+              childComponent={<Ionicons name="md-add" size={32} color={colors.White} />}
             />
           </View>
         </HorizontalButtonsContainer>

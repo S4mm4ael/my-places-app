@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   },
   primaryButtonInnerContainer: {
     backgroundColor: colors.SecondaryRed,
+    alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 16,
     //Android specific:
