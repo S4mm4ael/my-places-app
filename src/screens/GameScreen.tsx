@@ -78,7 +78,7 @@ export default function GameScreen({ userNumber, onGameOver }: GameScreenProps) 
           </View>
         </HorizontalButtonsContainer>
       </Card>
-      <View style={styles.listContainer}>
+      <View style={styles.screen}>
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -111,8 +111,5 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-  },
-  listContainer: {
-    flex: 1,
   },
 });

@@ -24,7 +24,10 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }: GameOverSc
         Your phone needed <Text style={styles.highlightText}>{roundsNumber}</Text> rounds to guess
         the number <Text style={styles.highlightText}>{userNumber}</Text>
       </Text>
-      <PrimaryButton buttonText="Start New Game" onPress={() => onStartNewGame()} />
+      <PrimaryButton
+        childComponent={<Text style={styles.primaryButtonText}>Start New Game</Text>}
+        onPress={() => onStartNewGame()}
+      />
     </View>
   );
 }
@@ -57,5 +60,9 @@ const styles = StyleSheet.create({
   },
   highlightText: {
     fontWeight: "800",
+  },
+  primaryButtonText: {
+    color: colors.White,
+    textAlign: "center",
   },
 });
