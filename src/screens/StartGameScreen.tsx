@@ -11,7 +11,7 @@ import {
 import PrimaryButton from "../components/UI/PrimaryButton";
 import { useState } from "react";
 import { colors } from "../global/constatnts";
-import { Title } from "../components/UI/Title";
+import { Title } from "../components/UI/Title.ios";
 import Card from "../components/UI/Card";
 import InstructionText from "../components/UI/InstructionText";
 import HorizontalButtonsContainer from "../components/UI/HorizontalButtonsContainer";

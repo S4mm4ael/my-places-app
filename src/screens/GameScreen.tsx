@@ -3,7 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { generateRandomNumberBetween } from "../utils/helpers/generateRandomNumber";
 import { useState, useEffect } from "react";
-import { Title } from "../components/UI/Title";
+import { Title } from "../components/UI/Title.ios";
 import { NumberContainer } from "../components/game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
 import Card from "../components/UI/Card";
