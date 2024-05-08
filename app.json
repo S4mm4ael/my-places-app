@@ -3,7 +3,7 @@
     "name": "react-native-workshop",
     "slug": "rncourse",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
