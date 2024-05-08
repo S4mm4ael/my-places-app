@@ -1,22 +1,17 @@
 import React from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, SafeAreaView} from "react-native";
+import Categories from "./screens/Categories";
 
 export default function App() {
   return (
-    <View style={styles.rootScreen}>
-      <Text>Hello</Text>
-    </View>
+    <SafeAreaView style={styles.root}>
+      <Categories />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  rootScreen: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  backgroundImage: {
-    opacity: 0.15,
+  root: {
+    paddingTop: 30,
   },
 });

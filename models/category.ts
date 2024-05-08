@@ -1,4 +1,10 @@
-class Category {
+interface ICategory {
+  id: string;
+  title: string;
+  color: string;
+}
+
+class Category implements ICategory {
   id: string;
   title: string;
   color: string;
