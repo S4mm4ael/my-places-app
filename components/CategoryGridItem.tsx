@@ -4,9 +4,10 @@ import React from "react";
 interface IProps {
   title: string;
   color: string;
+  onPress: () => void;
 }
 
-const CategoryGridItem = ({title, color}: IProps) => {
+const CategoryGridItem = ({title, color, onPress}: IProps) => {
   return (
     <View style={styles.itemContainer}>
       <Pressable
@@ -15,6 +16,7 @@ const CategoryGridItem = ({title, color}: IProps) => {
           pressed ? styles.buttonPressed : null,
         ]}
         android_ripple={{color: "ccc"}}
+        onPress={onPress}
       >
         <View style={[styles.innerContainer, {backgroundColor: color}]}>
           <Text style={styles.title}>{title}</Text>
