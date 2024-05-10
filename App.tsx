@@ -9,7 +9,7 @@ import MealOverview from "./screens/MealOverview";
 const Stack = createNativeStackNavigator();
 
 export type StackParamList = {
-  MealOverview: undefined;
+  MealOverview: {id: string};
 };
 
 export default function App() {

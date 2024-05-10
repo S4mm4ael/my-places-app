@@ -15,7 +15,9 @@ function renderCategoryItem(
   navigation: any
 ) {
   const pressHandler = () => {
-    navigation.navigate("MealOverview");
+    navigation.navigate("MealOverview", {
+      categoryId: itemData.item.id,
+    });
   };
 
   return (
