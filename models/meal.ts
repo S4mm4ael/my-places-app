@@ -1,4 +1,4 @@
-interface IMeal {
+export interface IMeal {
   id: string;
   categoryIds: string[];
   title: string;

@@ -7,7 +7,7 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {StackParamList} from "../App";
 
 interface IProps {
-  navigation: NativeStackNavigationProp<StackParamList, "MealOverview">;
+  navigation: NativeStackNavigationProp<StackParamList, "MealsOverview">;
 }
 
 function renderCategoryItem(
