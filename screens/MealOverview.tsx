@@ -8,11 +8,12 @@ type ProfileScreenRouteProp = RouteProp<StackParamList, "MealOverview">;
 
 function MealOverview() {
   const route = useRoute<ProfileScreenRouteProp>();
-  const categoryId = route.params.id;
+  const categoryId = route.params.categoryId;
+  console.log(categoryId);
 
   return (
     <View style={styles.container}>
-      <Text>Meals Overview screen - ${categoryId}</Text>
+      <Text>Meals Overview screen - {categoryId}</Text>
     </View>
   );
 }
