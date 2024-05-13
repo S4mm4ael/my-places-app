@@ -12,10 +12,10 @@ import {StackParamList} from "../App";
 import MealItem from "../components/MealItem";
 import Meal from "../models/meal";
 
-type ProfileScreenRouteProp = RouteProp<StackParamList, "MealsOverview">;
+type MealsOverviewRouteProp = RouteProp<StackParamList, "MealsOverview">;
 
 function MealsOverview() {
-  const route = useRoute<ProfileScreenRouteProp>();
+  const route = useRoute<MealsOverviewRouteProp>();
   const navigation = useNavigation();
   const categoryId = route.params.categoryId;
 

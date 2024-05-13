@@ -2,12 +2,24 @@ import {View, Text, Pressable, Image, StyleSheet, Platform} from "react-native";
 import React from "react";
 import Meal from "../models/meal";
 import {stylesGlobal} from "../global/styles";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {StackParamList} from "../App";
 
 interface IProps {
   data: Meal;
 }
 
 const MealItem = ({data}: IProps) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<StackParamList, "Meal">>();
+
+  const handlePress = () => {
+    navigation.navigate("Meal", {
+      mealId: data.id,
+    });
+  };
+
   return (
     <View style={styles.mealItem}>
       <Pressable
@@ -16,7 +28,7 @@ const MealItem = ({data}: IProps) => {
           pressed ? styles.buttonPressed : null,
         ]}
         android_ripple={{color: "ccc"}}
-        onPress={() => null}
+        onPress={handlePress}
       >
         <View>
           <Image source={{uri: data.imageUrl}} style={styles.image} />

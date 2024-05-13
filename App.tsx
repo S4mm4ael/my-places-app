@@ -1,10 +1,11 @@
 import React from "react";
-import {StyleSheet, SafeAreaView} from "react-native";
+import {StyleSheet} from "react-native";
 import Categories from "./screens/Categories";
 import {StatusBar} from "expo-status-bar";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MealsOverview from "./screens/MealOverview";
+import Meal from "./screens/Meal";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,8 +13,13 @@ type MealsOverviewParams = {
   categoryId: string;
 };
 
+type MealParams = {
+  mealId: string;
+};
+
 export type StackParamList = {
   MealsOverview: MealsOverviewParams;
+  Meal: MealParams;
 };
 
 export default function App() {
@@ -28,7 +34,7 @@ export default function App() {
             options={{title: "All Categories", headerTitleAlign: "center"}}
           />
           <Stack.Screen
-            name="MealOverview"
+            name="MealsOverview"
             component={MealsOverview}
             options={{headerTitleAlign: "center"}}
             //TODO remove from PR
@@ -38,6 +44,11 @@ export default function App() {
             //     title: categoryId,
             //   };
             // }}
+          />
+          <Stack.Screen
+            name="Meal"
+            component={Meal}
+            options={{headerTitleAlign: "center"}}
           />
         </Stack.Navigator>
       </NavigationContainer>
