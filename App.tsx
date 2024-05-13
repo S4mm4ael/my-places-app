@@ -30,12 +30,14 @@ export default function App() {
           <Stack.Screen
             name="MealOverview"
             component={MealsOverview}
-            options={({route, navigation}) => {
-              const {categoryId} = route.params as MealsOverviewParams;
-              return {
-                title: categoryId,
-              };
-            }}
+            options={{headerTitleAlign: "center"}}
+            //TODO remove from PR
+            // options={({route, navigation}) => {
+            //   const {categoryId} = route.params as MealsOverviewParams;
+            //   return {
+            //     title: categoryId,
+            //   };
+            // }}
           />
         </Stack.Navigator>
       </NavigationContainer>

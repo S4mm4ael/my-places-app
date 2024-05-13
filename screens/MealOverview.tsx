@@ -1,5 +1,5 @@
-import React from "react";
-import {MEALS} from "../data/data";
+import React, {useLayoutEffect} from "react";
+import {CATEGORIES, MEALS} from "../data/data";
 import {
   View,
   FlatList,
@@ -7,7 +7,7 @@ import {
   ListRenderItemInfo,
   ListRenderItem,
 } from "react-native";
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
 import MealItem from "../components/MealItem";
 import Meal from "../models/meal";
@@ -16,6 +16,7 @@ type ProfileScreenRouteProp = RouteProp<StackParamList, "MealsOverview">;
 
 function MealsOverview() {
   const route = useRoute<ProfileScreenRouteProp>();
+  const navigation = useNavigation();
   const categoryId = route.params.categoryId;
 
   const displayedMeals = MEALS.filter((item) => {
@@ -25,6 +26,14 @@ function MealsOverview() {
   const renderMealItem: ListRenderItem<Meal> = ({item}) => {
     return <MealItem data={item} />;
   };
+
+  useLayoutEffect(() => {
+    const categoryName = CATEGORIES.find(
+      (category) => category.id === categoryId
+    )?.title;
+
+    navigation.setOptions({title: categoryName});
+  }, [categoryId, navigation]);
 
   return (
     <View style={styles.container}>
