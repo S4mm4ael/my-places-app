@@ -8,8 +8,12 @@ import MealsOverview from "./screens/MealOverview";
 
 const Stack = createNativeStackNavigator();
 
+type MealsOverviewParams = {
+  categoryId: string;
+};
+
 export type StackParamList = {
-  MealsOverview: {categoryId: string};
+  MealsOverview: MealsOverviewParams;
 };
 
 export default function App() {
@@ -26,7 +30,12 @@ export default function App() {
           <Stack.Screen
             name="MealOverview"
             component={MealsOverview}
-            options={{title: "Meals Overview", headerTitleAlign: "center"}}
+            options={({route, navigation}) => {
+              const {categoryId} = route.params as MealsOverviewParams;
+              return {
+                title: categoryId,
+              };
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
