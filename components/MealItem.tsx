@@ -5,6 +5,7 @@ import {stylesGlobal} from "../global/styles";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {StackParamList} from "../App";
+import MealDetails from "./MealDetails";
 
 interface IProps {
   data: Meal;
@@ -34,15 +35,7 @@ const MealItem = ({data}: IProps) => {
           <Image source={{uri: data.imageUrl}} style={styles.image} />
           <Text style={styles.title}>{data.title}</Text>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.detailsItem}>{data.duration} min</Text>
-          <Text style={styles.detailsItem}>
-            {data.complexity.toUpperCase()}
-          </Text>
-          <Text style={styles.detailsItem}>
-            {data.affordability.toUpperCase()}
-          </Text>
-        </View>
+        <MealDetails meal={data} />
       </Pressable>
     </View>
   );
