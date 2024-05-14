@@ -1,8 +1,8 @@
-import {Text, StyleSheet, Image, ScrollView} from "react-native";
+import {Text, StyleSheet, Image, ScrollView, View} from "react-native";
 import React, {useLayoutEffect} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
-import {MEALS} from "../data/data";
+import {CATEGORIES, MEALS} from "../data/data";
 import MealDetails from "../components/MealDetails";
 import MealDetailsList from "../components/MealDetailsList";
 
@@ -13,6 +13,10 @@ const Meal = () => {
   const navigation = useNavigation();
   const mealId = route.params.mealId;
   const meal = MEALS.find((meal) => meal.id === mealId);
+
+  const categoryColor =
+    CATEGORIES.find((category) => category.id === meal?.categoryIds[0])
+      ?.color ?? "#000";
 
   useLayoutEffect(() => {
     navigation.setOptions({title: meal?.title});
@@ -27,8 +31,14 @@ const Meal = () => {
         name="Ingredients"
         list={meal.ingredients}
         listStyle="marked"
+        color={categoryColor}
       />
-      <MealDetailsList name="Steps" list={meal.steps} listStyle="numbered" />
+      <MealDetailsList
+        name="Steps"
+        list={meal.steps}
+        listStyle="numbered"
+        color={categoryColor}
+      />
     </ScrollView>
   ) : (
     <Text>Meal is't found...</Text>
