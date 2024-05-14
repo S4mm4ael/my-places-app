@@ -1,4 +1,4 @@
-import {Text, StyleSheet, Image, ScrollView, View} from "react-native";
+import {Text, StyleSheet, Image, ScrollView, View, Button} from "react-native";
 import React, {useLayoutEffect} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
@@ -18,9 +18,18 @@ const Meal = () => {
     CATEGORIES.find((category) => category.id === meal?.categoryIds[0])
       ?.color ?? "#000";
 
+  const handleHeaderButtonPress = () => {
+    console.log("clicked");
+  };
+
   useLayoutEffect(() => {
-    navigation.setOptions({title: meal?.title});
-  }, [mealId, navigation]);
+    navigation.setOptions({
+      title: meal?.title,
+      headerRight: () => {
+        return <Button title="Tap" onPress={handleHeaderButtonPress} />;
+      },
+    });
+  }, [mealId, navigation, handleHeaderButtonPress]);
 
   return meal ? (
     <ScrollView>

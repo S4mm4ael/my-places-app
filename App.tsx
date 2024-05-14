@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet} from "react-native";
+import {Button, StyleSheet, Text} from "react-native";
 import Categories from "./screens/Categories";
 import {StatusBar} from "expo-status-bar";
 import {NavigationContainer} from "@react-navigation/native";
@@ -48,7 +48,9 @@ export default function App() {
           <Stack.Screen
             name="Meal"
             component={Meal}
-            options={{headerTitleAlign: "center"}}
+            options={{
+              headerTitleAlign: "center",
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
