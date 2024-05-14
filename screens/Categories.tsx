@@ -5,17 +5,14 @@ import Category from "../models/category";
 import CategoryGridItem from "../components/CategoryGridItem";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {StackParamList} from "../App";
-
-interface IProps {
-  navigation: NativeStackNavigationProp<StackParamList, "MealOverview">;
-}
+import {useNavigation} from "@react-navigation/native";
 
 function renderCategoryItem(
   itemData: ListRenderItemInfo<Category>,
-  navigation: any
+  navigation: NativeStackNavigationProp<StackParamList, "MealsOverview">
 ) {
   const pressHandler = () => {
-    navigation.navigate("MealOverview", {
+    navigation.navigate("MealsOverview", {
       categoryId: itemData.item.id,
     });
   };
@@ -29,7 +26,10 @@ function renderCategoryItem(
   );
 }
 
-const Categories = ({navigation}: IProps) => {
+const Categories = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<StackParamList, "MealsOverview">>();
+
   return (
     <FlatList
       data={CATEGORIES}
