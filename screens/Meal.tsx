@@ -1,31 +1,12 @@
-import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
+import {Text, StyleSheet, Image, ScrollView} from "react-native";
 import React, {useLayoutEffect} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
 import {MEALS} from "../data/data";
 import MealDetails from "../components/MealDetails";
+import MealDetailsList from "../components/MealDetailsList";
 
 type MealRouteProp = RouteProp<StackParamList, "Meal">;
-
-const renderList = (
-  name: string,
-  list: string[],
-  listStyle: "marked" | "numbered"
-) => {
-  return (
-    <View style={styles.listContainer}>
-      <Text style={styles.subTitle}>{name}</Text>
-      {list.map((item, index) => (
-        <View key={index} style={{flexDirection: "row"}}>
-          <Text style={{fontWeight: "bold"}}>
-            {listStyle === "marked" ? "‧" : index + 1}
-          </Text>
-          <Text> {item}</Text>
-        </View>
-      ))}
-    </View>
-  );
-};
 
 const Meal = () => {
   const route = useRoute<MealRouteProp>();
@@ -42,8 +23,12 @@ const Meal = () => {
       <Image source={{uri: meal.imageUrl}} style={styles.image} />
       <Text style={styles.title}>Meal details</Text>
       <MealDetails meal={meal} />
-      {renderList("Ingredients ", meal.ingredients, "marked")}
-      {renderList("Steps ", meal.steps, "numbered")}
+      <MealDetailsList
+        name="Ingredients"
+        list={meal.ingredients}
+        listStyle="marked"
+      />
+      <MealDetailsList name="Steps" list={meal.steps} listStyle="numbered" />
     </ScrollView>
   ) : (
     <Text>Meal is't found...</Text>
@@ -72,12 +57,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 8,
-  },
-  detailsItem: {
-    margin: 4,
-    fontSize: 12,
-  },
-  listContainer: {
-    paddingHorizontal: 4,
   },
 });
