@@ -5,6 +5,7 @@ import {StackParamList} from "../App";
 import {CATEGORIES, MEALS} from "../data/data";
 import MealDetails from "../components/MealDetails";
 import MealDetailsList from "../components/MealDetailsList";
+import {IconButton} from "../components/UI";
 
 type MealRouteProp = RouteProp<StackParamList, "Meal">;
 
@@ -26,7 +27,13 @@ const Meal = () => {
     navigation.setOptions({
       title: meal?.title,
       headerRight: () => {
-        return <Button title="Tap" onPress={handleHeaderButtonPress} />;
+        return (
+          <IconButton
+            icon="star"
+            color="#000"
+            onPress={handleHeaderButtonPress}
+          />
+        );
       },
     });
   }, [mealId, navigation, handleHeaderButtonPress]);
