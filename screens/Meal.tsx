@@ -9,7 +9,7 @@ import {IconButton} from "../components/UI";
 
 type MealRouteProp = RouteProp<StackParamList, "Meal">;
 
-const Meal = () => {
+export const Meal = () => {
   const route = useRoute<MealRouteProp>();
   const navigation = useNavigation();
   const mealId = route.params.mealId;
@@ -60,8 +60,6 @@ const Meal = () => {
     <Text>Meal is't found...</Text>
   );
 };
-
-export default Meal;
 
 const styles = StyleSheet.create({
   image: {

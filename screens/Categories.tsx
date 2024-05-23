@@ -26,7 +26,7 @@ function renderCategoryItem(
   );
 }
 
-const Categories = () => {
+export const Categories = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<StackParamList, "MealsOverview">>();
 
@@ -39,5 +39,3 @@ const Categories = () => {
     />
   );
 };
-
-export default Categories;
