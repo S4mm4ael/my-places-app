@@ -5,7 +5,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {Categories, Favorites, Meal, MealsOverview} from "./screens";
 
-import {createDrawerNavigator} from "@react-navigation/drawer";
+import {DrawerContent, createDrawerNavigator} from "@react-navigation/drawer";
+import Ionicons from "@react-native-vector-icons/ionicons";
 
 type MealsOverviewParams = {
   categoryId: string;
@@ -25,8 +26,23 @@ const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Categories" component={Categories} />
+    <Drawer.Navigator
+      screenOptions={{
+        drawerContentStyle: {
+          backgroundColor: "#fee",
+        },
+        drawerInactiveTintColor: "#ddd",
+      }}
+    >
+      <Drawer.Screen
+        name="All Categories"
+        component={Categories}
+        options={{
+          drawerIcon: ({color, size}) => (
+            <Ionicons name="list" color={color ?? "#000"} size={size ?? 20} />
+          ),
+        }}
+      />
       <Drawer.Screen name="Favorites" component={Favorites} />
     </Drawer.Navigator>
   );
@@ -39,9 +55,9 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="MealsCategories"
+            name="Drawer"
             component={DrawerNavigator}
-            options={{title: "All Categories", headerTitleAlign: "center"}}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="MealsOverview"
@@ -52,6 +68,7 @@ export default function App() {
             name="Meal"
             component={Meal}
             options={{
+              title: "About the Meal",
               headerTitleAlign: "center",
             }}
           />
