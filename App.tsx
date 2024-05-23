@@ -6,8 +6,10 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import MealsOverview from "./screens/MealOverview";
 import Meal from "./screens/Meal";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 type MealsOverviewParams = {
   categoryId: string;
@@ -37,13 +39,6 @@ export default function App() {
             name="MealsOverview"
             component={MealsOverview}
             options={{headerTitleAlign: "center"}}
-            //TODO remove from PR
-            // options={({route, navigation}) => {
-            //   const {categoryId} = route.params as MealsOverviewParams;
-            //   return {
-            //     title: categoryId,
-            //   };
-            // }}
           />
           <Stack.Screen
             name="Meal"
