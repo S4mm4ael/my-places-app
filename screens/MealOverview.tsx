@@ -14,7 +14,7 @@ import Meal from "../models/meal";
 
 type MealsOverviewRouteProp = RouteProp<StackParamList, "MealsOverview">;
 
-function MealsOverview() {
+export function MealsOverview() {
   const route = useRoute<MealsOverviewRouteProp>();
   const navigation = useNavigation();
   const categoryId = route.params.categoryId;
@@ -45,8 +45,6 @@ function MealsOverview() {
     </View>
   );
 }
-
-export default MealsOverview;
 
 const styles = StyleSheet.create({
   container: {
