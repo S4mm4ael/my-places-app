@@ -5,8 +5,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {Categories, Favorites, Meal, MealsOverview} from "./screens";
 
-import {DrawerContent, createDrawerNavigator} from "@react-navigation/drawer";
-import Ionicons from "@react-native-vector-icons/ionicons";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 type MealsOverviewParams = {
   categoryId: string;
@@ -39,11 +39,23 @@ function DrawerNavigator() {
         component={Categories}
         options={{
           drawerIcon: ({color, size}) => (
-            <Ionicons name="list" color={color ?? "#000"} size={size ?? 20} />
+            <MIcon
+              name="clipboard-list"
+              color={color ?? "#000"}
+              size={size ?? 20}
+            />
           ),
         }}
       />
-      <Drawer.Screen name="Favorites" component={Favorites} />
+      <Drawer.Screen
+        name="Favorites"
+        component={Favorites}
+        options={{
+          drawerIcon: ({color, size}) => (
+            <MIcon name="heart-box" color={color ?? "#000"} size={size ?? 20} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
