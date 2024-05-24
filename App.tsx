@@ -7,6 +7,7 @@ import {Categories, Favorites, Meal, MealsOverview} from "./screens";
 
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import {FavoritesContextProvider} from "./store/context/favorites-context";
 
 type MealsOverviewParams = {
   categoryId: string;
@@ -29,7 +30,7 @@ function DrawerNavigator() {
     <Drawer.Navigator
       screenOptions={{
         drawerContentStyle: {
-          backgroundColor: "#fee",
+          backgroundColor: "#eee",
         },
         drawerInactiveTintColor: "#ddd",
       }}
@@ -64,28 +65,30 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Drawer"
-            component={DrawerNavigator}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="MealsOverview"
-            component={MealsOverview}
-            options={{headerTitleAlign: "center"}}
-          />
-          <Stack.Screen
-            name="Meal"
-            component={Meal}
-            options={{
-              title: "About the Meal",
-              headerTitleAlign: "center",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Drawer"
+              component={DrawerNavigator}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="MealsOverview"
+              component={MealsOverview}
+              options={{headerTitleAlign: "center"}}
+            />
+            <Stack.Screen
+              name="Meal"
+              component={Meal}
+              options={{
+                title: "About the Meal",
+                headerTitleAlign: "center",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }
