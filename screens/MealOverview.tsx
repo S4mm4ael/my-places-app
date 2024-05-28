@@ -1,16 +1,9 @@
 import React, {useLayoutEffect} from "react";
 import {CATEGORIES, MEALS} from "../data/data";
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  ListRenderItemInfo,
-  ListRenderItem,
-} from "react-native";
+import {View, StyleSheet} from "react-native";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
-import MealItem from "../components/MealItem";
-import Meal from "../models/meal";
+import {MealsList} from "../components/MealsList/MealsList";
 
 type MealsOverviewRouteProp = RouteProp<StackParamList, "MealsOverview">;
 
@@ -18,14 +11,6 @@ export function MealsOverview() {
   const route = useRoute<MealsOverviewRouteProp>();
   const navigation = useNavigation();
   const categoryId = route.params.categoryId;
-
-  const displayedMeals = MEALS.filter((item) => {
-    return item.categoryIds.indexOf(categoryId) >= 0;
-  });
-
-  const renderMealItem: ListRenderItem<Meal> = ({item}) => {
-    return <MealItem data={item} />;
-  };
 
   useLayoutEffect(() => {
     const categoryName = CATEGORIES.find(
@@ -35,13 +20,13 @@ export function MealsOverview() {
     navigation.setOptions({title: categoryName});
   }, [categoryId, navigation]);
 
+  const displayedMeals = MEALS.filter((item) => {
+    return item.categoryIds.indexOf(categoryId) >= 0;
+  });
+
   return (
     <View style={styles.container}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMealItem}
-      />
+      <MealsList meals={displayedMeals} />
     </View>
   );
 }
