@@ -1,26 +1,31 @@
 import {Text, StyleSheet, Image, ScrollView, View, Button} from "react-native";
-import React, {useLayoutEffect} from "react";
+import React, {useContext, useLayoutEffect} from "react";
 import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {StackParamList} from "../App";
 import {CATEGORIES, MEALS} from "../data/data";
 import MealDetails from "../components/MealDetails";
 import MealDetailsList from "../components/MealDetailsList";
 import {IconButton} from "../components/UI";
+import {FavoritesContext} from "../store/context/favorites-context";
 
 type MealRouteProp = RouteProp<StackParamList, "Meal">;
 
 export const Meal = () => {
   const route = useRoute<MealRouteProp>();
   const navigation = useNavigation();
+  const {ids, removeFavorite, addFavorite} = useContext(FavoritesContext);
+
   const mealId = route.params.mealId;
   const meal = MEALS.find((meal) => meal.id === mealId);
+
+  const mealIsFavorite = ids.includes(mealId);
 
   const categoryColor =
     CATEGORIES.find((category) => category.id === meal?.categoryIds[0])
       ?.color ?? "#000";
 
-  const handleHeaderButtonPress = () => {
-    console.log("clicked");
+  const changeFavStatus = () => {
+    mealIsFavorite ? removeFavorite(mealId) : addFavorite(mealId);
   };
 
   useLayoutEffect(() => {
@@ -29,14 +34,14 @@ export const Meal = () => {
       headerRight: () => {
         return (
           <IconButton
-            icon="star"
+            icon={mealIsFavorite ? "star" : "star-outline"}
             color="#000"
-            onPress={handleHeaderButtonPress}
+            onPress={changeFavStatus}
           />
         );
       },
     });
-  }, [mealId, navigation, handleHeaderButtonPress]);
+  }, [mealId, navigation, changeFavStatus]);
 
   return meal ? (
     <ScrollView>
