@@ -4,11 +4,15 @@ interface IFavoritesPayload {
   id: string;
 }
 
+export interface IInitialFavState {
+  ids: string[];
+}
+
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState: {
-    ids: [] as string[],
-  },
+    ids: [],
+  } as IInitialFavState,
   reducers: {
     addFavorite: (state, action: PayloadAction<IFavoritesPayload>) => {
       state.ids.push(action.payload.id);

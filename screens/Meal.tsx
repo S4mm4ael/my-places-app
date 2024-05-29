@@ -6,26 +6,35 @@ import {CATEGORIES, MEALS} from "../data/data";
 import MealDetails from "../components/MealDetails";
 import MealDetailsList from "../components/MealDetailsList";
 import {IconButton} from "../components/UI";
-import {FavoritesContext} from "../store/context/favorites-context";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {RootState} from "../store/redux/store";
+import {IInitialFavState} from "../store/redux/favorites";
+import {addFavorite, removeFavorite} from "../store/redux/favorites";
+//import {FavoritesContext} from "../store/context/favorites-context";
 
 type MealRouteProp = RouteProp<StackParamList, "Meal">;
 
 export const Meal = () => {
   const route = useRoute<MealRouteProp>();
   const navigation = useNavigation();
-  const {ids, removeFavorite, addFavorite} = useContext(FavoritesContext);
+  const favoriteMealIDs = useSelector((state: IInitialFavState) => state.ids);
+  const dispatch = useDispatch();
+  //const {ids, removeFavorite, addFavorite} = useContext(FavoritesContext);
 
   const mealId = route.params.mealId;
   const meal = MEALS.find((meal) => meal.id === mealId);
 
-  const mealIsFavorite = ids.includes(mealId);
+  const mealIsFavorite = favoriteMealIDs.includes(mealId);
 
   const categoryColor =
     CATEGORIES.find((category) => category.id === meal?.categoryIds[0])
       ?.color ?? "#000";
 
   const changeFavStatus = () => {
-    mealIsFavorite ? removeFavorite(mealId) : addFavorite(mealId);
+    //mealIsFavorite ? removeFavorite(mealId) : addFavorite(mealId);
+    mealIsFavorite
+      ? dispatch(removeFavorite({id: mealId}))
+      : dispatch(addFavorite({id: mealId}));
   };
 
   useLayoutEffect(() => {
