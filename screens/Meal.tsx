@@ -13,6 +13,8 @@ type MealRouteProp = RouteProp<StackParamList, "Meal">;
 export const Meal = () => {
   const route = useRoute<MealRouteProp>();
   const navigation = useNavigation();
+  //const favoriteMealIDs = useSelector((state: IInitialFavState) => state.ids);
+  //const dispatch = useDispatch();
   const {ids, removeFavorite, addFavorite} = useContext(FavoritesContext);
 
   const mealId = route.params.mealId;
@@ -26,6 +28,9 @@ export const Meal = () => {
 
   const changeFavStatus = () => {
     mealIsFavorite ? removeFavorite(mealId) : addFavorite(mealId);
+    // mealIsFavorite
+    //   ? dispatch(removeFavorite({id: mealId}))
+    //   : dispatch(addFavorite({id: mealId}));
   };
 
   useLayoutEffect(() => {

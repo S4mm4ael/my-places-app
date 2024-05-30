@@ -7,6 +7,9 @@ import {Categories, Favorites, Meal, MealsOverview} from "./screens";
 
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
+//import {FavoritesContextProvider} from "./store/context/favorites-context";
+import {Provider} from "react-redux";
+import {store} from "./store/redux/store";
 import {FavoritesContextProvider} from "./store/context/favorites-context";
 
 type MealsOverviewParams = {
