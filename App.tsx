@@ -10,6 +10,7 @@ import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 //import {FavoritesContextProvider} from "./store/context/favorites-context";
 import {Provider} from "react-redux";
 import {store} from "./store/redux/store";
+import {FavoritesContextProvider} from "./store/context/favorites-context";
 
 type MealsOverviewParams = {
   categoryId: string;
@@ -67,7 +68,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" />
-      <Provider store={store}>
+      <FavoritesContextProvider>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
@@ -90,7 +91,7 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      </Provider>
+      </FavoritesContextProvider>
     </>
   );
 }
