@@ -13,6 +13,7 @@ export const RootNavigator = () => {
         <RootStackNavigator.Screen
           name="ExpencsesOverview"
           component={ExpensesOverview}
+          options={{headerShown: false}}
         />
         <RootStackNavigator.Screen
           name="ManageExpenses"
