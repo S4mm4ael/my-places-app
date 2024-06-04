@@ -1,10 +1,7 @@
 import {View, Text} from "react-native";
 import React from "react";
+import {ExpensesOutput} from "../components/Expenses";
 
 export const AllExpenses = () => {
-  return (
-    <View>
-      <Text>AllExpenses</Text>
-    </View>
-  );
+  return <ExpensesOutput />;
 };

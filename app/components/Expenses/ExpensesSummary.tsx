@@ -1,12 +1,13 @@
 import {View, Text} from "react-native";
 import React from "react";
+import {Expense} from "../../constants";
 
 interface IProps {
-  expenses: any;
+  expenses: Expense[];
   periodName: string;
 }
 
-const ExpensesSummary = ({expenses, periodName}: IProps) => {
+export const ExpensesSummary = ({expenses, periodName}: IProps) => {
   const expensesSum = expenses.reduce((sum: number, expense) => {
     return sum + expense.amount;
   }, 0);
@@ -18,5 +19,3 @@ const ExpensesSummary = ({expenses, periodName}: IProps) => {
     </View>
   );
 };
-
-export default ExpensesSummary;

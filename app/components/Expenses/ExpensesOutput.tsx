@@ -1,9 +1,15 @@
 import {View} from "react-native";
 import React from "react";
-import ExpensesSummary from "./ExpensesSummary";
-import ExpensesList from "./ExpensesList";
+import {ExpensesSummary} from "./ExpensesSummary";
+import {ExpensesList} from "./ExpensesList";
+import {Expense} from "../../constants";
 
-const ExpensesOutput = ({expenses, expensesName}) => {
+interface Props {
+  expenses: Expense[];
+  expensesName: string;
+}
+
+export const ExpensesOutput = ({expenses, expensesName}: Props) => {
   return (
     <View>
       <ExpensesSummary expenses={expenses} periodName={expensesName} />
@@ -11,5 +17,3 @@ const ExpensesOutput = ({expenses, expensesName}) => {
     </View>
   );
 };
-
-export default ExpensesOutput;
