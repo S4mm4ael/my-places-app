@@ -1,6 +1,7 @@
 import React from "react";
 import {Pressable, View, Text, StyleSheet} from "react-native";
 import {Expense} from "../../constants";
+import {getFormattedDate} from "../../utils";
 
 export const ExpenseItem = ({description, amount, date}: Partial<Expense>) => {
   return (
@@ -8,7 +9,9 @@ export const ExpenseItem = ({description, amount, date}: Partial<Expense>) => {
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.description}>{description}</Text>
-          <Text style={styles.date}>{date?.toDateString()}</Text>
+          <Text style={styles.date}>
+            {date ? getFormattedDate(date) : null}
+          </Text>
         </View>
         <View style={styles.amountContainer}>
           <Text style={styles.amount}>{amount}</Text>
