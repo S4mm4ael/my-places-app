@@ -1,0 +1,92 @@
+export const mockedExpenses = [
+  {
+    id: "e1",
+    description: "A pair of shoes",
+    amount: 59.99,
+    date: new Date("2021-12-19"),
+  },
+  {
+    id: "e2",
+    description: "A pair of trosers",
+    amount: 19.99,
+    date: new Date("2021-11-12"),
+  },
+  {
+    id: "e3",
+    description: "A pair of socks",
+    amount: 9.99,
+    date: new Date("2021-11-09"),
+  },
+  {
+    id: "e4",
+    description: "Beer",
+    amount: 120.22,
+    date: new Date("2021-11-09"),
+  },
+  {
+    id: "e5",
+    description: "Book",
+    amount: 11.24,
+    date: new Date("2021-11-09"),
+  },
+  {
+    id: "e6",
+    description: "Movie Ticket",
+    amount: 12.99,
+    date: new Date("2023-06-01"),
+  },
+  {
+    id: "e7",
+    description: "Dinner",
+    amount: 45.5,
+    date: new Date("2023-06-02"),
+  },
+  {
+    id: "e8",
+    description: "Coffee",
+    amount: 4.25,
+    date: new Date("2023-06-03"),
+  },
+  {
+    id: "e9",
+    description: "Gym Membership",
+    amount: 30.0,
+    date: new Date("2023-06-04"),
+  },
+  {
+    id: "e10",
+    description: "Bus Ticket",
+    amount: 2.75,
+    date: new Date("2023-06-05"),
+  },
+  {
+    id: "e11",
+    description: "Lunch",
+    amount: 15.8,
+    date: new Date("2023-06-06"),
+  },
+  {
+    id: "e12",
+    description: "Shoes",
+    amount: 89.99,
+    date: new Date("2023-06-07"),
+  },
+  {
+    id: "e13",
+    description: "Phone Bill",
+    amount: 55.0,
+    date: new Date("2023-06-08"),
+  },
+  {
+    id: "e14",
+    description: "Concert Ticket",
+    amount: 75.0,
+    date: new Date("2023-06-09"),
+  },
+  {
+    id: "e15",
+    description: "Groceries",
+    amount: 120.34,
+    date: new Date("2023-06-10"),
+  },
+];
