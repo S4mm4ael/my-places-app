@@ -1,4 +1,4 @@
-import {View} from "react-native";
+import {View, StyleSheet} from "react-native";
 import React from "react";
 import {ExpensesSummary} from "./ExpensesSummary";
 import {ExpensesList} from "./ExpensesList";
@@ -11,9 +11,15 @@ interface Props {
 
 export const ExpensesOutput = ({expenses, expensesName}: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <ExpensesSummary expenses={expenses} periodName={expensesName} />
       <ExpensesList expenses={expenses} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 35,
+  },
+});
