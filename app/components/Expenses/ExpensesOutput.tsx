@@ -13,7 +13,7 @@ export const ExpensesOutput = ({expenses, expensesName}: Props) => {
   return (
     <View>
       <ExpensesSummary expenses={expenses} periodName={expensesName} />
-      <ExpensesList />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 };
