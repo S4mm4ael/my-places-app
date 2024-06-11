@@ -3,9 +3,14 @@ import {Pressable, View, Text, StyleSheet} from "react-native";
 import {Expense} from "../../constants";
 import {getFormattedDate} from "../../utils";
 
-export const ExpenseItem = ({description, amount, date}: Partial<Expense>) => {
+export const ExpenseItem = ({
+  description,
+  amount,
+  date,
+  onPress,
+}: Partial<Expense> & {onPress: () => void}) => {
   return (
-    <Pressable style={styles.pressable}>
+    <Pressable style={styles.pressable} onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.description}>{description}</Text>
