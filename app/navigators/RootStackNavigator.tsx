@@ -8,7 +8,7 @@ const RootStackNavigator = createNativeStackNavigator();
 
 export const RootNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <RootStackNavigator.Navigator>
         <RootStackNavigator.Screen
           name="ExpencsesOverview"
