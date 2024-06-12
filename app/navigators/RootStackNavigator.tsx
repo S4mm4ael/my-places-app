@@ -1,6 +1,6 @@
 import React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {AllExpenses, ManageExpenses, RecentExpenses} from "../screens";
+import {AllExpenses, ManageExpense, RecentExpenses} from "../screens";
 import {NavigationContainer} from "@react-navigation/native";
 import {ExpensesOverview} from "./ExpensesOverview";
 
@@ -16,8 +16,8 @@ export const RootNavigator = () => {
           options={{headerShown: false}}
         />
         <RootStackNavigator.Screen
-          name="ManageExpenses"
-          component={ManageExpenses}
+          name="ManageExpense"
+          component={ManageExpense}
         />
       </RootStackNavigator.Navigator>
     </NavigationContainer>

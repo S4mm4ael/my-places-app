@@ -7,12 +7,8 @@ interface Props {
   expenses: Expense[];
 }
 
-const expensePressHandler = () => {
-  console.log(`Expense with pressed`);
-};
-
 const RenderExpenseItem: ListRenderItem<Expense> = ({item}) => {
-  return <ExpenseItem {...item} onPress={expensePressHandler} />;
+  return <ExpenseItem {...item} />;
 };
 
 export const ExpensesList = ({expenses}: Props) => {

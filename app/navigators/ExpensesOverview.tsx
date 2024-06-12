@@ -10,7 +10,7 @@ const BottomTabNavigator = createBottomTabNavigator();
 export const ExpensesOverview = () => {
   return (
     <BottomTabNavigator.Navigator
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerStyle: {
           backgroundColor: Colors.header,
         },
@@ -23,11 +23,11 @@ export const ExpensesOverview = () => {
             size={24}
             color={Colors.tint}
             onPress={() => {
-              console.log("Add Expense");
+              navigation.navigate("ManageExpense" as never);
             }}
           />
         ),
-      }}
+      })}
     >
       <BottomTabNavigator.Screen
         name="RecentExpences"
