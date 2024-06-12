@@ -1,3 +1,3 @@
 export {AllExpenses} from "./AllExpenses";
-export {ManageExpenses} from "./ManageExpenses";
+export {ManageExpense} from "./ManageExpense";
 export {RecentExpenses} from "./RecentExpenses";
