@@ -1,23 +1,34 @@
 import React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {AllExpenses, ManageExpenses, RecentExpenses} from "../screens";
-import {NavigationContainer} from "@react-navigation/native";
+import {AllExpenses, ManageExpense, RecentExpenses} from "../screens";
+import {NavigationContainer, NavigationProp} from "@react-navigation/native";
 import {ExpensesOverview} from "./ExpensesOverview";
+import {Colors} from "../constants";
 
-const RootStackNavigator = createNativeStackNavigator();
+export type RootStackParamList = {
+  ManageExpense: {id: string | undefined};
+  ExpensesOverview: undefined;
+};
+
+export type RootNavigationProps = NavigationProp<RootStackParamList>;
+
+const RootStackNavigator = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
   return (
-    <NavigationContainer>
-      <RootStackNavigator.Navigator>
+    <NavigationContainer independent={true}>
+      <RootStackNavigator.Navigator
+        screenOptions={{headerStyle: {backgroundColor: Colors.header}}}
+      >
         <RootStackNavigator.Screen
-          name="ExpencsesOverview"
+          name="ExpensesOverview"
           component={ExpensesOverview}
           options={{headerShown: false}}
         />
         <RootStackNavigator.Screen
-          name="ManageExpenses"
-          component={ManageExpenses}
+          name="ManageExpense"
+          component={ManageExpense}
+          options={{title: "Manage Expense", presentation: "modal"}}
         />
       </RootStackNavigator.Navigator>
     </NavigationContainer>

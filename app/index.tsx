@@ -1,12 +1,14 @@
 import React from "react";
+import {RootNavigator} from "./navigators";
 import {StatusBar} from "expo-status-bar";
-import {RootNavigator} from "./app/navigators";
 
-export default function App() {
+const index = () => {
   return (
     <>
       <StatusBar style="dark" />
       <RootNavigator />
     </>
   );
-}
+};
+
+export default index;

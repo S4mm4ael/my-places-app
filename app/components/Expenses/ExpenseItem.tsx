@@ -2,10 +2,23 @@ import React from "react";
 import {Pressable, View, Text, StyleSheet} from "react-native";
 import {Expense} from "../../constants";
 import {getFormattedDate} from "../../utils";
+import {useNavigation} from "@react-navigation/native";
+import {RootNavigationProps} from "@/app/navigators/RootStackNavigator";
 
-export const ExpenseItem = ({description, amount, date}: Partial<Expense>) => {
+export const ExpenseItem = ({
+  id,
+  description,
+  amount,
+  date,
+}: Partial<Expense>) => {
+  const {navigate} = useNavigation<RootNavigationProps>();
+
+  const expensePressHandler = () => {
+    navigate("ManageExpense", {id: id});
+  };
+
   return (
-    <Pressable style={styles.pressable}>
+    <Pressable style={styles.pressable} onPress={expensePressHandler}>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.description}>{description}</Text>
