@@ -7,7 +7,7 @@ import Button from "../components/UI/Button";
 
 export const ManageExpense = () => {
   const route = useRoute();
-  const {setOptions} = useNavigation();
+  const {goBack, setOptions} = useNavigation();
 
   const id = (route.params as {id?: string})?.id;
   const isEdit = id !== undefined;
@@ -20,14 +20,17 @@ export const ManageExpense = () => {
 
   const deleteButtonHandler = () => {
     console.log("delete");
+    goBack();
   };
 
   const cancelButtonHandler = () => {
     console.log("cancel");
+    goBack();
   };
 
   const confirmButtonHandler = () => {
     console.log("confirm");
+    goBack();
   };
 
   return (
