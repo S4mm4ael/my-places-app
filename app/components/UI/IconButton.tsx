@@ -8,7 +8,7 @@ type IconName = keyof (typeof Ionicons)["glyphMap"];
 interface IconButtonProps {
   icon: IconName;
   onPress: () => void;
-  size: number;
+  size?: number;
   color: string;
 }
 

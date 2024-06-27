@@ -1,6 +1,8 @@
 import {View, Text} from "react-native";
 import React from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
+import {IconButton} from "../components/UI/IconButton";
+import {Colors} from "../constants";
 
 export const ManageExpense = () => {
   const route = useRoute();
@@ -17,7 +19,9 @@ export const ManageExpense = () => {
 
   return (
     <View>
-      <Text>ManageExpenses {id ? <Text>{id}</Text> : null} </Text>
+      {isEdit ? (
+        <IconButton icon="trash" color="red" onPress={() => {}} />
+      ) : null}
     </View>
   );
 };
