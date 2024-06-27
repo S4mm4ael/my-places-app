@@ -18,7 +18,16 @@ export const RootNavigator = () => {
   return (
     <NavigationContainer independent={true}>
       <RootStackNavigator.Navigator
-        screenOptions={{headerStyle: {backgroundColor: Colors.header}}}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.header,
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 22,
+          },
+        }}
       >
         <RootStackNavigator.Screen
           name="ExpensesOverview"
@@ -28,7 +37,10 @@ export const RootNavigator = () => {
         <RootStackNavigator.Screen
           name="ManageExpense"
           component={ManageExpense}
-          options={{title: "Manage Expense", presentation: "modal"}}
+          options={{
+            title: "Manage Expense",
+            presentation: "modal",
+          }}
         />
       </RootStackNavigator.Navigator>
     </NavigationContainer>
