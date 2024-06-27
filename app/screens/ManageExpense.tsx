@@ -17,10 +17,14 @@ export const ManageExpense = () => {
     });
   }, [isEdit, setOptions]);
 
+  const deleteButtonHandler = () => {
+    console.log("delete");
+  };
+
   return (
     <View>
       {isEdit ? (
-        <IconButton icon="trash" color="red" onPress={() => {}} />
+        <IconButton icon="trash" color="red" onPress={deleteButtonHandler} />
       ) : null}
     </View>
   );
