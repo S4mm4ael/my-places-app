@@ -5,11 +5,15 @@ import {Colors} from "../../constants/Colors";
 interface ButtonProps {
   title: string;
   onPress: () => void;
+  color?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({title, onPress}) => {
+const Button: React.FC<ButtonProps> = ({title, onPress, color}) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button, {backgroundColor: color ?? Colors.blue}]}
+      onPress={onPress}
+    >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );

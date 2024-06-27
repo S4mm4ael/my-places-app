@@ -8,4 +8,5 @@ export const Colors = {
   header: "gainsboro",
   white: "#fff",
   blue: "#007BFF",
+  green: "#28a745",
 };
