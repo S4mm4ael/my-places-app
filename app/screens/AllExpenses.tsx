@@ -1,12 +1,13 @@
 import {View, Text} from "react-native";
-import React from "react";
+import React, {useContext} from "react";
 import {ExpensesOutput} from "../components/Expenses";
 import {mockedExpenses} from "../components/Expenses/data";
+import {ExpensesContext} from "../stores/expenses-context";
 
 const expensesName = "All";
 
 export const AllExpenses = () => {
-  return (
-    <ExpensesOutput expenses={mockedExpenses} expensesName={expensesName} />
-  );
+  const {expenses} = useContext(ExpensesContext);
+
+  return <ExpensesOutput expenses={expenses} expensesName={expensesName} />;
 };

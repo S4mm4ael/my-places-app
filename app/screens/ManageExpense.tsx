@@ -1,11 +1,13 @@
 import {View, StyleSheet} from "react-native";
-import React from "react";
+import React, {useContext} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {IconButton} from "../components/UI/IconButton";
 import {Colors} from "../constants";
 import Button from "../components/UI/Button";
+import {ExpensesContext} from "../stores/expenses-context";
 
 export const ManageExpense = () => {
+  const expensesContext = useContext(ExpensesContext);
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
 
@@ -19,17 +21,30 @@ export const ManageExpense = () => {
   }, [isEdit, setOptions]);
 
   const deleteButtonHandler = () => {
-    console.log("delete");
+    expensesContext.deleteExpense(id);
     goBack();
   };
 
   const cancelButtonHandler = () => {
-    console.log("cancel");
     goBack();
   };
 
   const confirmButtonHandler = () => {
-    console.log("confirm");
+    if (isEdit) {
+      expensesContext.updateExpense(id, {
+        id: id,
+        description: "Updated",
+        amount: 100,
+        date: new Date(),
+      });
+    } else {
+      expensesContext.addExpense({
+        id: new Date().toString() + Math.random().toString(),
+        description: "New",
+        amount: 100,
+        date: new Date(),
+      });
+    }
     goBack();
   };
 

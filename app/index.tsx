@@ -1,12 +1,15 @@
 import React from "react";
 import {RootNavigator} from "./navigators";
 import {StatusBar} from "expo-status-bar";
+import {ExpensesContextProvider} from "./stores/expenses-context";
 
 const index = () => {
   return (
     <>
       <StatusBar style="dark" />
-      <RootNavigator />
+      <ExpensesContextProvider>
+        <RootNavigator />
+      </ExpensesContextProvider>
     </>
   );
 };
