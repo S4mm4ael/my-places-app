@@ -5,14 +5,14 @@ import {mockedExpenses} from "../components/Expenses/data";
 interface ExpensesContextType {
   expenses: Expense[];
   addExpense: ({description, amount, date}: Expense) => void;
-  deleteExpense: (id: string) => void;
+  deleteExpense: (id: string | undefined) => void;
   updateExpense: (id: string, {description, amount, date}: Expense) => void;
 }
 
 const expensesContextObject: ExpensesContextType = {
   expenses: [],
   addExpense: ({description, amount, date}: Expense) => {},
-  deleteExpense: (id: string) => {},
+  deleteExpense: (id: string | undefined) => {},
   updateExpense: (id: string, {description, amount, date}: Expense) => {},
 };
 
@@ -54,8 +54,8 @@ export const ExpensesContextProvider = ({
     });
   };
 
-  const deleteExpense = (id: string) => {
-    dispatch({type: "DELETE", payload: id});
+  const deleteExpense = (id: string | undefined) => {
+    id ? dispatch({type: "DELETE", payload: id}) : console.log("No id");
   };
 
   const updateExpense = (id: string, {description, amount, date}: Expense) => {
