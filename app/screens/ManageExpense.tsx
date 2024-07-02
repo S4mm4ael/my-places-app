@@ -5,6 +5,7 @@ import {IconButton} from "../components/UI/IconButton";
 import {Colors} from "../constants";
 import Button from "../components/UI/Button";
 import {ExpensesContext} from "../stores/expenses-context";
+import {ExpenseForm} from "../components/ManageExpenses";
 
 export const ManageExpense = () => {
   const expensesContext = useContext(ExpensesContext);
@@ -50,6 +51,7 @@ export const ManageExpense = () => {
 
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={cancelButtonHandler} />
         <Button
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    gap: 20,
   },
   buttonsContainer: {
     flexDirection: "row",
