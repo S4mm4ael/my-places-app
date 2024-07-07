@@ -1,4 +1,10 @@
-import {View, StyleSheet} from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, {useContext} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {IconButton} from "../components/UI/IconButton";
@@ -50,27 +56,32 @@ export const ManageExpense = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ExpenseForm />
-      <View style={styles.buttonsContainer}>
-        <Button title="Cancel" onPress={cancelButtonHandler} />
-        <Button
-          title={isEdit ? "Update" : "Add"}
-          onPress={confirmButtonHandler}
-          color={Colors.green}
-        />
-        {isEdit ? (
-          <IconButton icon="trash" color="red" onPress={deleteButtonHandler} />
-        ) : null}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <ExpenseForm />
+        <View style={styles.buttonsContainer}>
+          <Button title="Cancel" onPress={cancelButtonHandler} />
+          <Button
+            title={isEdit ? "Update" : "Add"}
+            onPress={confirmButtonHandler}
+            color={Colors.green}
+          />
+          {isEdit ? (
+            <IconButton
+              icon="trash"
+              color="red"
+              onPress={deleteButtonHandler}
+            />
+          ) : null}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     gap: 20,
   },
   buttonsContainer: {

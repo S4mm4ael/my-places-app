@@ -11,7 +11,7 @@ export const Input = ({label, textInputConfig}: InputProps) => {
     <View style={styles.inputContainer}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, label === "Description" && {height: 80}]}
         {...textInputConfig}
         placeholderTextColor="#ccc"
       />
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 8,
     color: "#000",
+    flex: 1,
   },
   label: {
     marginBottom: 4,

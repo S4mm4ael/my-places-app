@@ -9,30 +9,35 @@ export const ExpenseForm = () => {
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>ExpenseForm</Text>
-      <Input
-        label="Amount"
-        textInputConfig={{
-          placeholder: "Enter amount",
-          keyboardType: "decimal-pad",
-          onChangeText: (amount) => amountChangeHandler(amount),
-        }}
-      />
-      <Input
-        label="Date"
-        textInputConfig={{
-          placeholder: "Year-Month-Day",
-          maxLength: 10,
-          onChangeText: (date) => {
-            console.log(date);
-          },
-        }}
-      />
+      <Text style={styles.title}>Your Expense</Text>
+      <View style={styles.inputsRow}>
+        <Input
+          label="Amount"
+          textInputConfig={{
+            placeholder: "Enter amount",
+            keyboardType: "decimal-pad",
+            onChangeText: (amount) => amountChangeHandler(amount),
+          }}
+        />
+        <Input
+          label="Date"
+          textInputConfig={{
+            placeholder: "Year-Month-Day",
+            maxLength: 10,
+            onChangeText: (date) => {
+              console.log(date);
+            },
+          }}
+        />
+      </View>
+
       <Input
         label="Description"
         textInputConfig={{
           placeholder: "Enter description",
-          maxLength: 10,
+          maxLength: 200,
+          multiline: true,
+          autoCorrect: false,
           onChangeText: (date) => {
             console.log(date);
           },
@@ -52,10 +57,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    height: 250,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  inputsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
   },
 });

@@ -7,7 +7,7 @@ import {Platform} from "react-native";
 const index = () => {
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
       <ExpensesContextProvider>
         <RootNavigator />
       </ExpensesContextProvider>
