@@ -3,15 +3,12 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView,
 } from "react-native";
 import React, {useContext} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import {IconButton} from "../components/UI/IconButton";
-import {Colors} from "../constants";
-import Button from "../components/UI/Button";
 import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
+import {IconButton} from "../components/UI/IconButton";
 
 export const ManageExpense = () => {
   const expensesContext = useContext(ExpensesContext);
@@ -33,7 +30,7 @@ export const ManageExpense = () => {
   };
 
   const cancelButtonHandler = () => {
-    goBack();
+    isEdit ? deleteButtonHandler() : goBack();
   };
 
   const confirmButtonHandler = () => {
@@ -58,22 +55,22 @@ export const ManageExpense = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <ExpenseForm />
-        <View style={styles.buttonsContainer}>
-          <Button title="Cancel" onPress={cancelButtonHandler} />
-          <Button
-            title={isEdit ? "Update" : "Add"}
-            onPress={confirmButtonHandler}
-            color={Colors.green}
-          />
-          {isEdit ? (
-            <IconButton
-              icon="trash"
-              color="red"
-              onPress={deleteButtonHandler}
-            />
-          ) : null}
-        </View>
+        <ExpenseForm
+          onCancel={cancelButtonHandler}
+          onSubmit={confirmButtonHandler}
+          confirmText={isEdit ? "Update" : "Add"}
+          iconButton={() => {
+            return isEdit ? (
+              <IconButton
+                icon="trash"
+                color="red"
+                onPress={deleteButtonHandler}
+              />
+            ) : (
+              <></>
+            );
+          }}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -83,10 +80,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    gap: 10,
   },
 });
