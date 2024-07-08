@@ -9,6 +9,7 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
 import {IconButton} from "../components/UI/IconButton";
+import {Expense} from "../constants";
 
 export const ManageExpense = () => {
   const expensesContext = useContext(ExpensesContext);
@@ -33,21 +34,11 @@ export const ManageExpense = () => {
     isEdit ? deleteButtonHandler() : goBack();
   };
 
-  const confirmButtonHandler = () => {
+  const confirmButtonHandler = (expenseData: Expense) => {
     if (isEdit) {
-      expensesContext.updateExpense(id, {
-        id: id,
-        description: "Updated",
-        amount: 100,
-        date: new Date(),
-      });
+      expensesContext.updateExpense(expenseData.id, expenseData);
     } else {
-      expensesContext.addExpense({
-        id: new Date().toString() + Math.random().toString(),
-        description: "New",
-        amount: 100,
-        date: new Date(),
-      });
+      expensesContext.addExpense(expenseData);
     }
     goBack();
   };
@@ -56,6 +47,7 @@ export const ManageExpense = () => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <ExpenseForm
+          expenseId={id}
           onCancel={cancelButtonHandler}
           onSubmit={confirmButtonHandler}
           confirmText={isEdit ? "Update" : "Add"}

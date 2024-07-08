@@ -1,23 +1,25 @@
 import {View, Text, StyleSheet, Button} from "react-native";
 import React, {useState} from "react";
 import {Input} from ".";
-import {IconButton} from "../UI/IconButton";
-import {Colors} from "@/app/constants";
+import {Colors, Expense} from "@/app/constants";
 
 interface IProps {
+  expenseId?: string;
   onCancel: () => void;
-  onSubmit: () => void;
+  onSubmit: (expenseData: Expense) => void;
   confirmText: string;
   iconButton: () => JSX.Element;
 }
 
 export const ExpenseForm = ({
+  expenseId,
   onCancel,
   onSubmit,
   confirmText,
   iconButton,
 }: IProps) => {
   const [inputsValues, setInputsValues] = useState({
+    expenseId: expenseId,
     amount: "",
     date: "",
     description: "",
@@ -30,6 +32,16 @@ export const ExpenseForm = ({
     setInputsValues((prevInputsValues: any) => {
       return {...prevInputsValues, [inputIdentifier]: enteredValue};
     });
+  };
+
+  const submitHandler = () => {
+    const expenseData = {
+      amount: +inputsValues.amount,
+      date: new Date(inputsValues.date),
+      description: inputsValues.description,
+    };
+
+    onSubmit(expenseData);
   };
 
   return (
