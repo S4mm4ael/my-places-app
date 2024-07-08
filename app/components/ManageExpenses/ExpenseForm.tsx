@@ -4,7 +4,7 @@ import {Input} from ".";
 import {Colors, Expense} from "@/app/constants";
 
 interface IProps {
-  expenseId?: string;
+  expenseId: string;
   onCancel: () => void;
   onSubmit: (expenseData: Expense) => void;
   confirmText: string;
@@ -36,6 +36,7 @@ export const ExpenseForm = ({
 
   const submitHandler = () => {
     const expenseData = {
+      id: expenseId,
       amount: +inputsValues.amount,
       date: new Date(inputsValues.date),
       description: inputsValues.description,
@@ -80,7 +81,11 @@ export const ExpenseForm = ({
       />
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={onCancel} />
-        <Button title={confirmText} onPress={onSubmit} color={Colors.green} />
+        <Button
+          title={confirmText}
+          onPress={submitHandler}
+          color={Colors.green}
+        />
         {iconButton()}
       </View>
     </View>
