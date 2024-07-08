@@ -3,10 +3,19 @@ import React, {useState} from "react";
 import {Input} from ".";
 
 export const ExpenseForm = () => {
-  const [amountValue, setAmountValue] = useState<string>("");
+  const [inputsValues, setInputsValues] = useState({
+    amount: "",
+    date: "",
+    description: "",
+  });
 
-  const amountChangeHandler = (enteredAmount: string) => {
-    setAmountValue(enteredAmount);
+  const inputChangeHandler = (
+    inputIdentifier: string,
+    enteredValue: string
+  ) => {
+    setInputsValues((prevInputsValues: any) => {
+      return {...prevInputsValues, [inputIdentifier]: enteredValue};
+    });
   };
 
   return (
@@ -18,8 +27,8 @@ export const ExpenseForm = () => {
           textInputConfig={{
             placeholder: "Enter amount",
             keyboardType: "decimal-pad",
-            onChangeText: amountChangeHandler,
-            value: amountValue,
+            onChangeText: inputChangeHandler.bind(this, "amount"),
+            value: inputsValues.amount,
           }}
         />
         <Input
@@ -27,9 +36,8 @@ export const ExpenseForm = () => {
           textInputConfig={{
             placeholder: "Year-Month-Day",
             maxLength: 10,
-            onChangeText: (date) => {
-              console.log(date);
-            },
+            onChangeText: inputChangeHandler.bind(this, "date"),
+            value: inputsValues.date,
           }}
         />
       </View>
@@ -41,9 +49,8 @@ export const ExpenseForm = () => {
           maxLength: 200,
           multiline: true,
           autoCorrect: false,
-          onChangeText: (date) => {
-            console.log(date);
-          },
+          onChangeText: inputChangeHandler.bind(this, "description"),
+          value: inputsValues.description,
         }}
       />
     </View>
