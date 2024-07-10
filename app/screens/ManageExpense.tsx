@@ -19,8 +19,9 @@ export const ManageExpense = () => {
   const id = (route.params as {id?: string})?.id ?? "-1";
   const isEdit = id !== "-1";
 
-  let selectedExpense = undefined
-  isEdit && selectedExpense = expensesContext.expenses.find((e) => e.id === id);
+  let selectedExpense = undefined;
+  isEdit &&
+    (selectedExpense = expensesContext.expenses.find((e) => e.id === id));
 
   React.useEffect(() => {
     setOptions({

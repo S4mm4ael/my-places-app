@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, Button} from "react-native";
 import React, {useState} from "react";
 import {Input} from ".";
 import {Colors, Expense} from "@/app/constants";
+import {getFormattedDate} from "@/app/utils";
 
 interface IProps {
   expenseId: string;
@@ -22,9 +23,9 @@ export const ExpenseForm = ({
 }: IProps) => {
   const [inputsValues, setInputsValues] = useState({
     expenseId: expenseId,
-    amount: "",
-    date: "",
-    description: "",
+    amount: defaultValues ? defaultValues.amount.toString() : "",
+    date: defaultValues ? getFormattedDate(defaultValues.date) : "",
+    description: defaultValues ? defaultValues.description : "",
   });
 
   const inputChangeHandler = (
