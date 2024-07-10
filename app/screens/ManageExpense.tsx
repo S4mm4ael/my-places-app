@@ -3,23 +3,25 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView,
 } from "react-native";
 import React, {useContext} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import {IconButton} from "../components/UI/IconButton";
-import {Colors} from "../constants";
-import Button from "../components/UI/Button";
 import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
+import {IconButton} from "../components/UI/IconButton";
+import {Expense} from "../constants";
 
 export const ManageExpense = () => {
   const expensesContext = useContext(ExpensesContext);
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
 
-  const id = (route.params as {id?: string})?.id;
-  const isEdit = id !== undefined;
+  const id = (route.params as {id?: string})?.id ?? "-1";
+  const isEdit = id !== "-1";
+
+  let selectedExpense = undefined;
+  isEdit &&
+    (selectedExpense = expensesContext.expenses.find((e) => e.id === id));
 
   React.useEffect(() => {
     setOptions({
@@ -33,24 +35,14 @@ export const ManageExpense = () => {
   };
 
   const cancelButtonHandler = () => {
-    goBack();
+    isEdit ? deleteButtonHandler() : goBack();
   };
 
-  const confirmButtonHandler = () => {
+  const confirmButtonHandler = (expenseData: Expense) => {
     if (isEdit) {
-      expensesContext.updateExpense(id, {
-        id: id,
-        description: "Updated",
-        amount: 100,
-        date: new Date(),
-      });
+      expensesContext.updateExpense(expenseData.id, expenseData);
     } else {
-      expensesContext.addExpense({
-        id: new Date().toString() + Math.random().toString(),
-        description: "New",
-        amount: 100,
-        date: new Date(),
-      });
+      expensesContext.addExpense(expenseData);
     }
     goBack();
   };
@@ -58,22 +50,24 @@ export const ManageExpense = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <ExpenseForm />
-        <View style={styles.buttonsContainer}>
-          <Button title="Cancel" onPress={cancelButtonHandler} />
-          <Button
-            title={isEdit ? "Update" : "Add"}
-            onPress={confirmButtonHandler}
-            color={Colors.green}
-          />
-          {isEdit ? (
-            <IconButton
-              icon="trash"
-              color="red"
-              onPress={deleteButtonHandler}
-            />
-          ) : null}
-        </View>
+        <ExpenseForm
+          expenseId={id}
+          onCancel={cancelButtonHandler}
+          onSubmit={confirmButtonHandler}
+          defaultValues={selectedExpense ?? null}
+          confirmText={isEdit ? "Update" : "Add"}
+          iconButton={() => {
+            return isEdit ? (
+              <IconButton
+                icon="trash"
+                color="red"
+                onPress={deleteButtonHandler}
+              />
+            ) : (
+              <></>
+            );
+          }}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -83,10 +77,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-  },
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    gap: 10,
   },
 });

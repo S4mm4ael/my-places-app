@@ -1,3 +1,3 @@
 export function getFormattedDate(date: Date) {
-  return date.toDateString();
+  return date.toISOString().slice(0, 10);
 }
