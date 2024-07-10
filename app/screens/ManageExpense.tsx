@@ -16,8 +16,11 @@ export const ManageExpense = () => {
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
 
-  const id = (route.params as {id?: string})?.id;
-  const isEdit = id !== undefined;
+  const id = (route.params as {id?: string})?.id ?? "-1";
+  const isEdit = id !== "-1";
+
+  let selectedExpense = undefined
+  isEdit && selectedExpense = expensesContext.expenses.find((e) => e.id === id);
 
   React.useEffect(() => {
     setOptions({
@@ -50,6 +53,7 @@ export const ManageExpense = () => {
           expenseId={id}
           onCancel={cancelButtonHandler}
           onSubmit={confirmButtonHandler}
+          defaultValues={selectedExpense ?? null}
           confirmText={isEdit ? "Update" : "Add"}
           iconButton={() => {
             return isEdit ? (

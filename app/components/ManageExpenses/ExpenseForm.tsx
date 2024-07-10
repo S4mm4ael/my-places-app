@@ -9,6 +9,7 @@ interface IProps {
   onSubmit: (expenseData: Expense) => void;
   confirmText: string;
   iconButton: () => JSX.Element;
+  defaultValues: Expense | null;
 }
 
 export const ExpenseForm = ({
@@ -17,6 +18,7 @@ export const ExpenseForm = ({
   onSubmit,
   confirmText,
   iconButton,
+  defaultValues,
 }: IProps) => {
   const [inputsValues, setInputsValues] = useState({
     expenseId: expenseId,
