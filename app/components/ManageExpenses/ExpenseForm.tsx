@@ -25,15 +25,15 @@ export const ExpenseForm = ({
     expenseId: expenseId,
     amount: {
       value: defaultValues ? defaultValues.amount.toString() : "",
-      isValid: defaultValues ? true : false,
+      isValid: true,
     },
     date: {
       value: defaultValues ? getFormattedDate(defaultValues.date) : "",
-      isValid: defaultValues ? true : false,
+      isValid: true,
     },
     description: {
       value: defaultValues ? defaultValues.description : "",
-      isValid: defaultValues ? true : false,
+      isValid: true,
     },
   });
 
@@ -62,14 +62,36 @@ export const ExpenseForm = ({
     const descriptionIsValid = expenseData.description.trim().length > 0;
 
     if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
-      Alert.alert("Invalid input", "Please check the errors in the form", [
-        {text: "Okay"},
-      ]);
+      // Alert.alert("Invalid input", "Please check the errors in the form", [
+      //   {text: "Okay"},
+      // ]);
+      setInputs((current) => {
+        return {
+          ...current,
+          amount: {
+            value: current.amount.value,
+            isValid: amountIsValid,
+          },
+          date: {
+            value: current.date.value,
+            isValid: dateIsValid,
+          },
+          description: {
+            value: current.description.value,
+            isValid: descriptionIsValid,
+          },
+        };
+      });
       return;
     }
 
     onSubmit(expenseData);
   };
+
+  const formIsInvalid =
+    !inputs.amount.isValid &&
+    !inputs.date.isValid &&
+    !inputs.description.isValid;
 
   return (
     <View style={styles.form}>
@@ -105,6 +127,7 @@ export const ExpenseForm = ({
           value: inputs.description.value,
         }}
       />
+      {formIsInvalid ? <Text>Please check the errors in the form</Text> : null}
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={onCancel} />
         <Button
