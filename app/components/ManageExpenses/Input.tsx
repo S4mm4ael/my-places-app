@@ -1,17 +1,25 @@
 import {View, Text, TextInput, TextInputProps, StyleSheet} from "react-native";
 import React from "react";
+import {Colors} from "@/app/constants";
 
 interface InputProps {
   label: string;
   textInputConfig?: TextInputProps;
+  invalid: boolean;
 }
 
-export const Input = ({label, textInputConfig}: InputProps) => {
+export const Input = ({label, textInputConfig, invalid}: InputProps) => {
   return (
     <View style={styles.inputContainer}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        {label}
+      </Text>
       <TextInput
-        style={[styles.input, label === "Description" && {height: 80}]}
+        style={[
+          styles.input,
+          label === "Description" && {height: 80},
+          invalid && styles.invalidInput,
+        ]}
         {...textInputConfig}
         placeholderTextColor="#ccc"
       />
@@ -34,5 +42,11 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     padding: 8,
     borderRadius: 4,
+  },
+  invalidLabel: {
+    color: Colors.red,
+  },
+  invalidInput: {
+    color: Colors.lightRed,
   },
 });

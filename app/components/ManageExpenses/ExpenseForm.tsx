@@ -105,6 +105,7 @@ export const ExpenseForm = ({
             onChangeText: inputChangeHandler.bind(this, "amount"),
             value: inputs.amount.value,
           }}
+          invalid={!inputs.amount.isValid}
         />
         <Input
           label="Date"
@@ -114,6 +115,7 @@ export const ExpenseForm = ({
             onChangeText: inputChangeHandler.bind(this, "date"),
             value: inputs.date.value,
           }}
+          invalid={!inputs.date.isValid}
         />
       </View>
       <Input
@@ -126,6 +128,7 @@ export const ExpenseForm = ({
           onChangeText: inputChangeHandler.bind(this, "description"),
           value: inputs.description.value,
         }}
+        invalid={!inputs.description.isValid}
       />
       {formIsInvalid ? <Text>Please check the errors in the form</Text> : null}
       <View style={styles.buttonsContainer}>
