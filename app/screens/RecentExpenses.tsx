@@ -3,7 +3,7 @@ import {ExpensesOutput} from "../components/Expenses";
 import {ExpensesContext} from "../stores/expenses-context";
 import {getRecentExpenses} from "./expensesUtils";
 import {fetchExpenses} from "../utils/api";
-import {LoadingOverlay} from "../components/UI";
+import {ErrorOverlay, LoadingOverlay} from "../components/UI";
 
 const expensesName = "Recent 7 days";
 
@@ -12,12 +12,18 @@ export const RecentExpenses = () => {
     useContext(ExpensesContext);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function getExpenses() {
       setIsLoading(true);
-      const expenses = await fetchExpenses();
-      setExpensesLocally(expenses);
+      try {
+        const expenses = await fetchExpenses();
+        setExpensesLocally(expenses);
+      } catch (error: any) {
+        setErrorMessage(error.message);
+      }
+
       setIsLoading(false);
     }
 
@@ -26,6 +32,15 @@ export const RecentExpenses = () => {
 
   if (isLoading) {
     return <LoadingOverlay />;
+  }
+
+  if (errorMessage) {
+    return (
+      <ErrorOverlay
+        errorMessage={errorMessage}
+        onConfirm={() => setErrorMessage(null)}
+      />
+    );
   }
 
   return (
