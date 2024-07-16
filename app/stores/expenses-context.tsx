@@ -1,4 +1,4 @@
-import {ReactElement, useReducer, createContext} from "react";
+import {ReactElement, useReducer, createContext, useState} from "react";
 import {Expense} from "../constants";
 
 interface ExpensesContextType {
@@ -7,6 +7,7 @@ interface ExpensesContextType {
   setExpenses: (expenses: Expense[]) => void;
   deleteExpense: (id: string | undefined) => void;
   updateExpense: (id: string, {description, amount, date}: Expense) => void;
+  reload: number;
 }
 
 const expensesContextObject: ExpensesContextType = {
@@ -15,6 +16,7 @@ const expensesContextObject: ExpensesContextType = {
   setExpenses: (expenses: Expense[]) => {},
   deleteExpense: (id: string | undefined) => {},
   updateExpense: (id: string, {description, amount, date}: Expense) => {},
+  reload: 0,
 };
 
 export const ExpensesContext = createContext<ExpensesContextType>(
@@ -43,7 +45,10 @@ export const ExpensesContextProvider = ({
 }: {
   children: ReactElement;
 }) => {
-  const [expensesState, dispatch] = useReducer(ExpensesReducer, []);
+  const [expensesState, dispatch] = useReducer(ExpensesReducer, [[]]);
+  const [reload, setReload] = useState(0);
+
+  const triggerReload = () => setReload((prev) => prev + 1);
 
   const addExpense = ({description, amount, date}: Expense) => {
     dispatch({
@@ -59,6 +64,7 @@ export const ExpensesContextProvider = ({
 
   const setExpenses = (expenses: Expense[]) => {
     dispatch({type: "SET", payload: expenses});
+    triggerReload();
   };
 
   const deleteExpense = (id: string | undefined) => {
@@ -83,6 +89,7 @@ export const ExpensesContextProvider = ({
     setExpenses,
     deleteExpense,
     updateExpense,
+    reload,
   };
 
   return (

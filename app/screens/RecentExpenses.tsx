@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {ExpensesOutput} from "../components/Expenses";
 import {ExpensesContext} from "../stores/expenses-context";
 import {getRecentExpenses} from "./expensesUtils";
@@ -8,7 +8,7 @@ import {Expense} from "../constants";
 const expensesName = "Recent 7 days";
 
 export const RecentExpenses = () => {
-  const {expenses, setExpenses} = useContext(ExpensesContext);
+  const {expenses, setExpenses, reload} = useContext(ExpensesContext);
 
   useEffect(() => {
     async function getExpenses() {
@@ -17,7 +17,7 @@ export const RecentExpenses = () => {
     }
 
     getExpenses();
-  }, []);
+  }, [reload]);
 
   return (
     <ExpensesOutput
