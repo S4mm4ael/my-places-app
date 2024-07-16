@@ -34,9 +34,9 @@ export const ManageExpense = () => {
     });
   }, [isEdit, setOptions]);
 
-  const deleteButtonHandler = () => {
+  const deleteButtonHandler = async () => {
+    await deleteExpense(id);
     deleteExpenseLocally(id);
-    deleteExpense(id);
     goBack();
   };
 
@@ -47,7 +47,7 @@ export const ManageExpense = () => {
   const confirmButtonHandler = async (expenseData: Expense) => {
     if (isEdit) {
       updateExpenseLocally(expenseData.id, expenseData);
-      updateExpense(expenseData.id, expenseData);
+      await updateExpense(expenseData.id, expenseData);
     } else {
       const body = {
         amount: expenseData.amount,
