@@ -1,10 +1,10 @@
 import {ReactElement, useReducer, createContext} from "react";
 import {Expense} from "../constants";
-import {mockedExpenses} from "../components/Expenses/data";
 
 interface ExpensesContextType {
   expenses: Expense[];
   addExpense: ({description, amount, date}: Expense) => void;
+  setExpenses: (expenses: Expense[]) => void;
   deleteExpense: (id: string | undefined) => void;
   updateExpense: (id: string, {description, amount, date}: Expense) => void;
 }
@@ -12,6 +12,7 @@ interface ExpensesContextType {
 const expensesContextObject: ExpensesContextType = {
   expenses: [],
   addExpense: ({description, amount, date}: Expense) => {},
+  setExpenses: (expenses: Expense[]) => {},
   deleteExpense: (id: string | undefined) => {},
   updateExpense: (id: string, {description, amount, date}: Expense) => {},
 };
@@ -24,6 +25,8 @@ function ExpensesReducer(state: Expense[], action: any) {
   switch (action.type) {
     case "ADD":
       return [...state, action.payload];
+    case "SET":
+      return action.payload;
     case "DELETE":
       return state.filter((expense) => expense.id !== action.payload);
     case "UPDATE":
@@ -40,7 +43,7 @@ export const ExpensesContextProvider = ({
 }: {
   children: ReactElement;
 }) => {
-  const [expensesState, dispatch] = useReducer(ExpensesReducer, mockedExpenses);
+  const [expensesState, dispatch] = useReducer(ExpensesReducer, []);
 
   const addExpense = ({description, amount, date}: Expense) => {
     dispatch({
@@ -52,6 +55,10 @@ export const ExpensesContextProvider = ({
         date,
       },
     });
+  };
+
+  const setExpenses = (expenses: Expense[]) => {
+    dispatch({type: "SET", payload: expenses});
   };
 
   const deleteExpense = (id: string | undefined) => {
@@ -73,6 +80,7 @@ export const ExpensesContextProvider = ({
   const value = {
     expenses: expensesState,
     addExpense,
+    setExpenses,
     deleteExpense,
     updateExpense,
   };

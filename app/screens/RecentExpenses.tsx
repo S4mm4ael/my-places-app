@@ -8,8 +8,7 @@ import {Expense} from "../constants";
 const expensesName = "Recent 7 days";
 
 export const RecentExpenses = () => {
-  //const {expenses} = useContext(ExpensesContext);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const {expenses, setExpenses} = useContext(ExpensesContext);
 
   useEffect(() => {
     async function getExpenses() {
