@@ -1,14 +1,22 @@
 import axios from "axios";
 import {Expense} from "../constants";
 
-const baseURL =
+const BASE_URL =
   "https://react-native-workshop-da895-default-rtdb.europe-west1.firebasedatabase.app/";
+const ROUTES = {
+  expenses: "expenses.json",
+};
 
 function storeExpense(expenseData: Omit<Expense, "id">) {
-  const itemRoute = "expenses.json";
-  const finalRoute = baseURL + itemRoute;
+  const finalRoute = BASE_URL + ROUTES.expenses;
   axios.post(finalRoute, expenseData);
-  console.log("📡 POST", finalRoute, {...expenseData});
+  console.log("📡 POST", finalRoute, expenseData);
 }
 
-export {storeExpense};
+function fetchExpenses() {
+  const finalRoute = BASE_URL + ROUTES.expenses;
+  const response = axios.get(finalRoute);
+  console.log("📡 GET", finalRoute, response);
+}
+
+export {storeExpense, fetchExpenses};
