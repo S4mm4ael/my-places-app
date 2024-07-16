@@ -1,27 +1,52 @@
-import {View, Text} from "react-native";
-import React, {useContext} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {ExpensesOutput} from "../components/Expenses";
-import {mockedExpenses} from "../components/Expenses/data";
 import {ExpensesContext} from "../stores/expenses-context";
+import {getRecentExpenses} from "./expensesUtils";
+import {fetchExpenses} from "../utils/api";
+import {ErrorOverlay, LoadingOverlay} from "../components/UI";
 
 const expensesName = "Recent 7 days";
 
 export const RecentExpenses = () => {
-  const {expenses} = useContext(ExpensesContext);
+  const {expenses, setExpenses: setExpensesLocally} =
+    useContext(ExpensesContext);
 
-  const filteredExpenses = expenses.filter((expense) => {
-    const expenseDate = new Date(expense.date);
-    const currentDate = new Date();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const secondsInDay = 1000 * 60 * 60 * 24;
+  useEffect(() => {
+    async function getExpenses() {
+      setIsLoading(true);
+      try {
+        const expenses = await fetchExpenses();
+        setExpensesLocally(expenses);
+      } catch (error: any) {
+        setErrorMessage(error.message);
+      }
 
-    const diffTime = Math.abs(currentDate.getTime() - expenseDate.getTime());
-    const diffDays = Math.ceil(diffTime / secondsInDay);
+      setIsLoading(false);
+    }
 
-    return diffDays <= 7;
-  });
+    getExpenses();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
+
+  if (errorMessage) {
+    return (
+      <ErrorOverlay
+        errorMessage={errorMessage}
+        onConfirm={() => setErrorMessage(null)}
+      />
+    );
+  }
 
   return (
-    <ExpensesOutput expenses={filteredExpenses} expensesName={expensesName} />
+    <ExpensesOutput
+      expenses={getRecentExpenses(expenses)}
+      expensesName={expensesName}
+    />
   );
 };

@@ -8,7 +8,7 @@ interface ButtonProps {
   color?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({title, onPress, color}) => {
+export const Button: React.FC<ButtonProps> = ({title, onPress, color}) => {
   return (
     <TouchableOpacity
       style={[styles.button, {backgroundColor: color ?? Colors.blue}]}
@@ -34,5 +34,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default Button;
