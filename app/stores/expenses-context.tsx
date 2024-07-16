@@ -7,7 +7,6 @@ interface ExpensesContextType {
   setExpenses: (expenses: Expense[]) => void;
   deleteExpense: (id: string | undefined) => void;
   updateExpense: (id: string, {description, amount, date}: Expense) => void;
-  reload: number;
 }
 
 const expensesContextObject: ExpensesContextType = {
@@ -16,7 +15,6 @@ const expensesContextObject: ExpensesContextType = {
   setExpenses: (expenses: Expense[]) => {},
   deleteExpense: (id: string | undefined) => {},
   updateExpense: (id: string, {description, amount, date}: Expense) => {},
-  reload: 0,
 };
 
 export const ExpensesContext = createContext<ExpensesContextType>(
@@ -26,7 +24,7 @@ export const ExpensesContext = createContext<ExpensesContextType>(
 function ExpensesReducer(state: Expense[], action: any) {
   switch (action.type) {
     case "ADD":
-      return [...state, action.payload];
+      return [action.payload, ...state];
     case "SET":
       return action.payload.reverse();
     case "DELETE":
@@ -46,9 +44,9 @@ export const ExpensesContextProvider = ({
   children: ReactElement;
 }) => {
   const [expensesState, dispatch] = useReducer(ExpensesReducer, [[]]);
-  const [reload, setReload] = useState(0);
+  const [reload, setReload] = useState(false);
 
-  const triggerReload = () => setReload((prev) => prev + 1);
+  const triggerReload = () => setReload(!reload);
 
   const addExpense = ({description, amount, date}: Expense) => {
     dispatch({

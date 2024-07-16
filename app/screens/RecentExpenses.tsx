@@ -8,16 +8,17 @@ import {Expense} from "../constants";
 const expensesName = "Recent 7 days";
 
 export const RecentExpenses = () => {
-  const {expenses, setExpenses, reload} = useContext(ExpensesContext);
+  const {expenses, setExpenses: setExpensesLocally} =
+    useContext(ExpensesContext);
 
   useEffect(() => {
     async function getExpenses() {
       const expenses = await fetchExpenses();
-      setExpenses(expenses);
+      setExpensesLocally(expenses);
     }
 
     getExpenses();
-  }, [reload]);
+  }, []);
 
   return (
     <ExpensesOutput
