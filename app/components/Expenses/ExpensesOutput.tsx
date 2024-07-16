@@ -20,6 +20,6 @@ export const ExpensesOutput = ({expenses, expensesName}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 35,
+    paddingBottom: 100,
   },
 });

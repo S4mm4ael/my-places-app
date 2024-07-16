@@ -3,8 +3,7 @@ import {ExpensesOutput} from "../components/Expenses";
 import {ExpensesContext} from "../stores/expenses-context";
 import {getRecentExpenses} from "./expensesUtils";
 import {fetchExpenses} from "../utils/api";
-import {Expense} from "../constants";
-import {LoadingOverlay} from "../components/UI/LoadingOverlay";
+import {LoadingOverlay} from "../components/UI";
 
 const expensesName = "Recent 7 days";
 

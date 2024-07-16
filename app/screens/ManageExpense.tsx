@@ -4,13 +4,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
-import {IconButton} from "../components/UI/IconButton";
 import {Expense} from "../constants";
 import {storeExpense, updateExpense, deleteExpense} from "../utils/api";
+import {LoadingOverlay, IconButton} from "../components/UI";
 
 export const ManageExpense = () => {
   const {
@@ -21,6 +21,7 @@ export const ManageExpense = () => {
   } = useContext(ExpensesContext);
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const id = (route.params as {id?: string})?.id ?? "-1";
   const isEdit = id !== "-1";
@@ -28,13 +29,14 @@ export const ManageExpense = () => {
   let selectedExpense = undefined;
   isEdit && (selectedExpense = expenses.find((e) => e.id === id));
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOptions({
       title: isEdit ? `Edit Expense ${id}` : "Add Expense",
     });
   }, [isEdit, setOptions]);
 
   const deleteButtonHandler = async () => {
+    setIsLoading(true);
     await deleteExpense(id);
     deleteExpenseLocally(id);
     goBack();
@@ -45,6 +47,7 @@ export const ManageExpense = () => {
   };
 
   const confirmButtonHandler = async (expenseData: Expense) => {
+    setIsLoading(true);
     if (isEdit) {
       updateExpenseLocally(expenseData.id, expenseData);
       await updateExpense(expenseData.id, expenseData);
@@ -59,6 +62,10 @@ export const ManageExpense = () => {
     }
     goBack();
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
