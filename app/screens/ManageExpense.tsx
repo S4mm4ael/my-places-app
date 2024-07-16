@@ -10,11 +10,15 @@ import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
 import {IconButton} from "../components/UI/IconButton";
 import {Expense} from "../constants";
-import {storeExpense} from "../utils/api";
+import {storeExpense, updateExpense, deleteExpense} from "../utils/api";
 
 export const ManageExpense = () => {
-  const {expenses, addExpense, deleteExpense, updateExpense} =
-    useContext(ExpensesContext);
+  const {
+    expenses,
+    addExpense,
+    deleteExpense: deleteExpenseLocally,
+    updateExpense: updateExpenseLocally,
+  } = useContext(ExpensesContext);
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
 
@@ -31,6 +35,7 @@ export const ManageExpense = () => {
   }, [isEdit, setOptions]);
 
   const deleteButtonHandler = () => {
+    deleteExpenseLocally(id);
     deleteExpense(id);
     goBack();
   };
@@ -41,6 +46,7 @@ export const ManageExpense = () => {
 
   const confirmButtonHandler = async (expenseData: Expense) => {
     if (isEdit) {
+      updateExpenseLocally(expenseData.id, expenseData);
       updateExpense(expenseData.id, expenseData);
     } else {
       const body = {
