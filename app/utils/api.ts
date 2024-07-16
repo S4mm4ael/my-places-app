@@ -5,6 +5,7 @@ const BASE_URL =
   "https://react-native-workshop-da895-default-rtdb.europe-west1.firebasedatabase.app/";
 const ROUTES = {
   expenses: "expenses.json",
+  expensesGeneral: "expenses/",
 };
 
 function apiLogger(method: string, route: string, data?: any) {
@@ -46,4 +47,16 @@ async function fetchExpenses() {
   return expenses;
 }
 
-export {storeExpense, fetchExpenses};
+function deleteExpense(id: string) {
+  const finalRoute = BASE_URL + ROUTES.expensesGeneral + `${id}.json`;
+  axios.delete(finalRoute);
+  apiLogger("DELETE", finalRoute);
+}
+
+function updateExpense(id: string, expenseData: Expense) {
+  const finalRoute = BASE_URL + ROUTES.expensesGeneral + `${id}.json`;
+  axios.put(finalRoute, expenseData);
+  apiLogger("PUT", finalRoute, expenseData);
+}
+
+export {storeExpense, fetchExpenses, deleteExpense, updateExpense};
