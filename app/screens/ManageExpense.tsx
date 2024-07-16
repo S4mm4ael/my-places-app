@@ -42,8 +42,9 @@ export const ManageExpense = () => {
       await deleteExpense(id);
       deleteExpenseLocally(id);
       goBack();
-    } catch (error: any) {
-      setErrorMessage(error.message);
+    } catch (_) {
+      setErrorMessage("Cant delete expense");
+      setIsLoading(false);
     }
   };
 
@@ -67,18 +68,18 @@ export const ManageExpense = () => {
         const id = await storeExpense(body);
         addExpense({...expenseData, id});
       }
-    } catch (error: any) {
-      setErrorMessage(error.message);
+      goBack();
+    } catch (_) {
+      setErrorMessage(`Cant ${isEdit ? "update" : "add"} expense`);
+      setIsLoading(false);
     }
-
-    goBack();
   };
 
   if (isLoading) {
     return <LoadingOverlay />;
   }
 
-  if (errorMessage) {
+  if (errorMessage && !isLoading) {
     return (
       <ErrorOverlay
         errorMessage={errorMessage}
