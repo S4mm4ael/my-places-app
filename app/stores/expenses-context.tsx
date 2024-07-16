@@ -28,7 +28,7 @@ function ExpensesReducer(state: Expense[], action: any) {
     case "ADD":
       return [...state, action.payload];
     case "SET":
-      return action.payload;
+      return action.payload.reverse();
     case "DELETE":
       return state.filter((expense) => expense.id !== action.payload);
     case "UPDATE":

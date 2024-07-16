@@ -13,7 +13,8 @@ import {Expense} from "../constants";
 import {storeExpense} from "../utils/api";
 
 export const ManageExpense = () => {
-  const expensesContext = useContext(ExpensesContext);
+  const {expenses, addExpense, deleteExpense, updateExpense} =
+    useContext(ExpensesContext);
   const route = useRoute();
   const {goBack, setOptions} = useNavigation();
 
@@ -21,8 +22,7 @@ export const ManageExpense = () => {
   const isEdit = id !== "-1";
 
   let selectedExpense = undefined;
-  isEdit &&
-    (selectedExpense = expensesContext.expenses.find((e) => e.id === id));
+  isEdit && (selectedExpense = expenses.find((e) => e.id === id));
 
   React.useEffect(() => {
     setOptions({
@@ -31,7 +31,7 @@ export const ManageExpense = () => {
   }, [isEdit, setOptions]);
 
   const deleteButtonHandler = () => {
-    expensesContext.deleteExpense(id);
+    deleteExpense(id);
     goBack();
   };
 
@@ -39,16 +39,17 @@ export const ManageExpense = () => {
     isEdit ? deleteButtonHandler() : goBack();
   };
 
-  const confirmButtonHandler = (expenseData: Expense) => {
+  const confirmButtonHandler = async (expenseData: Expense) => {
     if (isEdit) {
-      expensesContext.updateExpense(expenseData.id, expenseData);
+      updateExpense(expenseData.id, expenseData);
     } else {
       const body = {
         amount: expenseData.amount,
         date: expenseData.date,
         description: expenseData.description,
       };
-      storeExpense(body);
+      const id = await storeExpense(body);
+      addExpense({...expenseData, id});
     }
     goBack();
   };

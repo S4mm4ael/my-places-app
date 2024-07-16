@@ -18,10 +18,12 @@ function apiLogger(method: string, route: string, data?: any) {
   );
 }
 
-function storeExpense(expenseData: Omit<Expense, "id">) {
+async function storeExpense(expenseData: Omit<Expense, "id">) {
   const finalRoute = BASE_URL + ROUTES.expenses;
-  axios.post(finalRoute, expenseData);
+  const response = await axios.post(finalRoute, expenseData);
+  const id = response.data.name;
   apiLogger("POST", finalRoute, expenseData);
+  return id;
 }
 
 async function fetchExpenses() {
