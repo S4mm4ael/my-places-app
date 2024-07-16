@@ -10,6 +10,7 @@ import {ExpensesContext} from "../stores/expenses-context";
 import {ExpenseForm} from "../components/ManageExpenses";
 import {IconButton} from "../components/UI/IconButton";
 import {Expense} from "../constants";
+import {storeExpense} from "../utils/api";
 
 export const ManageExpense = () => {
   const expensesContext = useContext(ExpensesContext);
@@ -42,6 +43,7 @@ export const ManageExpense = () => {
     if (isEdit) {
       expensesContext.updateExpense(expenseData.id, expenseData);
     } else {
+      storeExpense(expenseData);
       expensesContext.addExpense(expenseData);
     }
     goBack();
