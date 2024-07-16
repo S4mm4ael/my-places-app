@@ -43,8 +43,12 @@ export const ManageExpense = () => {
     if (isEdit) {
       expensesContext.updateExpense(expenseData.id, expenseData);
     } else {
-      storeExpense(expenseData);
-      expensesContext.addExpense(expenseData);
+      const body = {
+        amount: expenseData.amount,
+        date: expenseData.date,
+        description: expenseData.description,
+      };
+      storeExpense(body);
     }
     goBack();
   };
