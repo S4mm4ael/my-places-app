@@ -1,11 +1,13 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
+import {Text} from "react-native";
 
-import LoginScreen from './screens/LoginScreen';
-import SignupScreen from './screens/SignupScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import { Colors } from './constants/styles';
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {StatusBar} from "expo-status-bar";
+
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+import WelcomeScreen from "./screens/WelcomeScreen";
+import {Colors} from "./constants/styles";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,9 +15,8 @@ function AuthStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: 'white',
-        contentStyle: { backgroundColor: Colors.primary100 },
+        headerStyle: {backgroundColor: Colors.primary500},
+        contentStyle: {backgroundColor: Colors.primary100},
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -28,9 +29,9 @@ function AuthenticatedStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: 'white',
-        contentStyle: { backgroundColor: Colors.primary100 },
+        headerStyle: {backgroundColor: Colors.primary500},
+        headerTintColor: "white",
+        contentStyle: {backgroundColor: Colors.primary100},
       }}
     >
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -50,7 +51,6 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-
       <Navigation />
     </>
   );
