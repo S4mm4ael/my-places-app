@@ -13,3 +13,5 @@ async function createNewUser({email, password}: UserCredentials) {
     }
   );
 }
+
+export {createNewUser};
