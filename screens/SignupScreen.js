@@ -6,10 +6,10 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 function SignupScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-  async function signUpHandler({email, password}) {
+  async function signUpHandler(email, password) {
+    console.log(email, password);
     setIsAuthenticating(true);
     await createNewUser(email, password);
-    n;
     setIsAuthenticating(false);
   }
 

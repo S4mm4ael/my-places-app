@@ -1,7 +1,7 @@
 import axios from "../node_modules/axios";
 import {UserCredentials} from "@/types";
 
-const API_KEY = process.env.API_KEY as string;
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY as string;
 
 async function createNewUser({email, password}: UserCredentials) {
   const respose = await axios.post(
@@ -12,6 +12,7 @@ async function createNewUser({email, password}: UserCredentials) {
       returnSecureToken: true,
     }
   );
+  return respose.data;
 }
 
 export {createNewUser};
