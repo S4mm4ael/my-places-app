@@ -9,13 +9,13 @@ import {AuthContext} from "../store/auth-context";
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
-  const authCtx = useContext(AuthContext);
+  const {authenticate} = useContext(AuthContext);
 
   async function loginUpHandler({email, password}) {
     setIsAuthenticating(true);
     try {
-      await signInUser(email, password);
-      authCtx.login(token);
+      const token = await signInUser({email, password});
+      authenticate(token);
     } catch (_) {
       Alert.alert("Authentification failed!", "Please try again", [
         {text: "Okay"},

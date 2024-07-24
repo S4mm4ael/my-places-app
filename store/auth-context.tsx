@@ -4,7 +4,9 @@ export const AuthContext = createContext({
   token: "",
   isLoggedIn: false,
   logout: () => {},
-  authenticate: (token: string) => {},
+  authenticate: (token: string) => {
+    console.log("CTX", token);
+  },
 });
 
 function AuthContextProvider({children}: {children: ReactNode}) {
@@ -21,8 +23,8 @@ function AuthContextProvider({children}: {children: ReactNode}) {
   const value = {
     token: authToken,
     isLoggedIn: !!authToken,
-    logout,
-    authenticate,
+    logout: logout,
+    authenticate: authenticate,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
