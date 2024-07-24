@@ -12,7 +12,9 @@ async function authenticate(mode: string, email: string, password: string) {
     returnSecureToken: true,
   });
 
-  console.log(response);
+  const token = response.data.idToken;
+
+  return token;
 }
 
 async function createNewUser({email, password}: UserCredentials) {
