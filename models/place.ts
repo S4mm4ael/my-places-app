@@ -1,12 +1,12 @@
-interface Place {
+interface IPlace {
   title: string;
   address: string;
   location: string;
   imageUri: string;
-  id: string;
+  id?: string;
 }
 
-class Place implements Place {
+class Place implements IPlace {
   constructor(
     public title: string,
     public address: string,
@@ -21,4 +21,4 @@ class Place implements Place {
   }
 }
 
-export default Place;
+export {IPlace, Place};
