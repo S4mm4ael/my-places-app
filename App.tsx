@@ -11,11 +11,17 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerTintColor: "white",
+            headerStyle: {backgroundColor: "#007bff"},
+          }}
+        >
           <Stack.Screen
             name="AllPlaces"
             component={AllPlaces}
             options={({navigation}) => ({
+              title: "All Places",
               headerRight: ({tintColor}) => (
                 <IconButton
                   name="add"
@@ -26,7 +32,11 @@ export default function App() {
               ),
             })}
           />
-          <Stack.Screen name="AddPlace" component={AddPlace} />
+          <Stack.Screen
+            name="AddPlace"
+            options={{title: "Add Place"}}
+            component={AddPlace}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
