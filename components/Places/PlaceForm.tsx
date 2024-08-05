@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {ScrollView, TextInput, View, Text, StyleSheet} from "react-native";
+import {ImagePicker} from "./ImagePicker";
 
 export function PlaceForm() {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -18,6 +19,8 @@ export function PlaceForm() {
           value={enteredTitle}
           placeholder="Enter place title"
         />
+        <Text style={styles.label}>Picture</Text>
+        <ImagePicker />
       </View>
     </ScrollView>
   );
