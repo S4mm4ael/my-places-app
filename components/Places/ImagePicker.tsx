@@ -4,9 +4,20 @@ import {
   useCameraPermissions,
   PermissionStatus,
 } from "expo-image-picker";
-import {Alert, Button, ScrollView, View} from "react-native";
+import {useState} from "react";
+import {
+  Alert,
+  Button,
+  ScrollView,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+} from "react-native";
 
 export function ImagePicker() {
+  const [pickedImage, setPickedImage] = useState<string | undefined>();
+
   const [cameraPermission, requestPermission] = useCameraPermissions();
 
   async function verifyPermissions() {
@@ -41,15 +52,43 @@ export function ImagePicker() {
     } as ImagePickerOptions;
 
     const image = await launchCameraAsync(cameraOptions);
-    return image;
+    setPickedImage(image?.assets?.[0]?.uri);
+  }
+
+  let imagePreview = <Text>No image picked yet.</Text>;
+
+  if (pickedImage) {
+    imagePreview = <Image source={{uri: pickedImage}} style={styles.image} />;
   }
 
   return (
-    <ScrollView>
-      <View>
-        <View></View>
-        <Button title="Take Image" onPress={takeImageHandler} />
-      </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.imagePreviewContainer}>{imagePreview}</View>
+      <Button title="Take Image" onPress={takeImageHandler} />
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  imagePreviewContainer: {
+    width: "100%",
+    height: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+});
