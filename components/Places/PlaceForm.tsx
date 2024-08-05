@@ -8,19 +8,19 @@ export function PlaceForm() {
     setEnteredTitle(enteredTitle);
   }
 
-    return (
-      <ScrollView>
-        <View style={styles.form}>
-          <Text style={styles.label}>Title</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={changeTitleHandler}
-            value={enteredTitle}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
+  return (
+    <ScrollView>
+      <View style={styles.form}>
+        <Text style={styles.label}>Title</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={changeTitleHandler}
+          value={enteredTitle}
+          placeholder="Enter place title"
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
