@@ -14,6 +14,7 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
+import {ButtonOutlined} from "../UI";
 
 export function ImagePicker() {
   const [pickedImage, setPickedImage] = useState<string | undefined>();
@@ -64,7 +65,7 @@ export function ImagePicker() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imagePreviewContainer}>{imagePreview}</View>
-      <Button title="Take Image" onPress={takeImageHandler} />
+      <ButtonOutlined title="Take Image" onPress={takeImageHandler} />
     </ScrollView>
   );
 }
