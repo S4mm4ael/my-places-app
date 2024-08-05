@@ -65,7 +65,11 @@ export function ImagePicker() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imagePreviewContainer}>{imagePreview}</View>
-      <ButtonOutlined title="Take Image" onPress={takeImageHandler} />
+      <ButtonOutlined
+        name="camera"
+        title="Take Image"
+        onPress={takeImageHandler}
+      />
     </ScrollView>
   );
 }

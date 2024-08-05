@@ -3,15 +3,21 @@ import {Ionicons} from "@expo/vector-icons";
 import {colors} from "../../constants/colors";
 
 interface ButtonOutlinedProps {
+  name: keyof typeof Ionicons.glyphMap;
   title: string;
   onPress: () => void;
   style?: any;
 }
 
-export function ButtonOutlined({title, onPress, style}: ButtonOutlinedProps) {
+export function ButtonOutlined({
+  name,
+  title,
+  onPress,
+  style,
+}: ButtonOutlinedProps) {
   return (
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-      <Ionicons name="camera" size={24} color={colors.info} />
+      <Ionicons name={name} size={24} color={colors.info} />
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );
