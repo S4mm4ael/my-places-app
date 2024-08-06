@@ -1,7 +1,7 @@
 import {FlatList, Text, View, StyleSheet} from "react-native";
 import PlaceItem from "./PlaceItem";
 
-export function PlacesList() {
+export function PlacesList({places}) {
   if (!places || places.length === 0) {
     return (
       <View style={styles.noPlacesContainer}>
