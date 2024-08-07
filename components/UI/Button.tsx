@@ -1,19 +1,19 @@
 import {ReactNode} from "react";
-import {Pressable, StyleSheet, ViewStyle} from "react-native";
+import {Pressable, StyleSheet, ViewStyle, Text} from "react-native";
 import {colors} from "../../constants/colors";
 
 interface ButtonProps {
   onPress: () => void;
-  children: ReactNode;
+  title: string;
 }
 
-export function Button({onPress, children}: ButtonProps) {
+export function Button({onPress, title}: ButtonProps) {
   return (
     <Pressable
       style={({pressed}) => [styles.button, pressed && styles.buttonPressed]}
       onPress={onPress}
     >
-      {children}
+      <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
 }
@@ -34,10 +34,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   } as ViewStyle,
   buttonPressed: {
-    backgroundColor: colors.dark,
+    backgroundColor: colors.success,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 8,
   } as ViewStyle,
+  text: {
+    color: "white",
+  },
 });

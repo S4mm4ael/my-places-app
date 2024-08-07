@@ -26,9 +26,7 @@ export function PlaceForm() {
         <Text style={styles.label}>Picture</Text>
         <ImagePicker />
         <LocationPicker />
-        <Button onPress={savePlaceHandler}>
-          <Text>Save place</Text>
-        </Button>
+        <Button onPress={savePlaceHandler} title="Save place" />
       </View>
     </ScrollView>
   );
