@@ -1,54 +1,65 @@
 import {View, StyleSheet, Alert, Text, Image} from "react-native";
 import {ButtonOutlined} from "../UI";
-import {
-  getCurrentPositionAsync,
-  useForegroundPermissions,
-  PermissionStatus,
-} from "expo-location";
+import * as Location from "expo-location";
 import {getMapPreview} from "../../utils/locations";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+
+interface ICoordinates {
+  lat: string;
+  lng: string;
+}
 
 export function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState<
-    Coordinates | undefined
-  >();
+    ICoordinates | undefined
+  >(undefined);
 
-  async function verifyUserPermissions() {
-    const [locationPermissionInformation, requestLocationPermission] =
-      useForegroundPermissions();
+  useEffect(() => {
+    checkIfLocationEnabled();
+    getCurrentLocation();
+  }, []);
 
-    if (
-      locationPermissionInformation?.status === PermissionStatus.UNDETERMINED
-    ) {
-      const permissionResponce = await requestLocationPermission();
-
-      return permissionResponce.granted;
+  const checkIfLocationEnabled = async () => {
+    let enabled = await Location.hasServicesEnabledAsync(); //returns true or false
+    if (!enabled) {
+      Alert.alert("Location not enabled", "Please enable your Location", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {text: "OK", onPress: () => console.log("OK Pressed")},
+      ]);
     }
+  };
 
-    if (locationPermissionInformation?.status === PermissionStatus.DENIED) {
+  const getCurrentLocation = async () => {
+    let {status} = await Location.requestForegroundPermissionsAsync(); //used for the pop up box where we give permission to use location
+    console.log(status);
+    if (status !== "granted") {
       Alert.alert(
-        "Permission Denied",
-        "You need to grant location permission to use this feature"
+        "Permission denied",
+        "Allow the app to use the location services",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {text: "OK", onPress: () => console.log("OK Pressed")},
+        ]
       );
-      return false;
     }
 
-    return true;
-  }
+    const {coords} = await Location.getCurrentPositionAsync();
+    console.log(coords);
 
-  async function getLocationHandler() {
-    const hasPermission = await verifyUserPermissions();
+    if (coords) {
+      const {latitude, longitude} = coords;
 
-    if (!hasPermission) {
-      return;
+      setPickedLocation({lat: latitude.toString(), lng: longitude.toString()});
     }
-
-    const location = await getCurrentPositionAsync();
-    setPickedLocation({
-      lat: location.coords.latitude,
-      lng: location.coords.longitude,
-    });
-  }
+  };
 
   function pickOnMapHandler() {}
 
@@ -72,7 +83,7 @@ export function LocationPicker() {
         <ButtonOutlined
           name="location"
           title="Locate user"
-          onPress={getLocationHandler}
+          onPress={getCurrentLocation}
         />
         <ButtonOutlined
           name="map"
