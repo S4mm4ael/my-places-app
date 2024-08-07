@@ -1,8 +1,10 @@
-import {useState} from "react";
-import {StyleSheet} from "react-native";
-import MapView, {MapViewProps} from "react-native-maps";
+import {useCallback, useLayoutEffect, useState} from "react";
+import {Alert, StyleSheet} from "react-native";
+import MapView, {MapViewProps, Marker} from "react-native-maps";
 import {ICoordinates} from "../models";
-import {Marker} from "react-native-maps";
+import {NavigationProp} from "@react-navigation/native";
+import {IconButton} from "../components/UI";
+import {colors} from "../constants/colors";
 
 const mapOptions: MapViewProps = {
   initialRegion: {
@@ -13,7 +15,7 @@ const mapOptions: MapViewProps = {
   },
 };
 
-export function Map() {
+export function Map({navigation}: {navigation: NavigationProp<any>}) {
   const [selectedLocation, setSelectedLocation] = useState<
     ICoordinates | undefined
   >(undefined);
@@ -25,6 +27,30 @@ export function Map() {
       lng: event.nativeEvent.coordinate.longitude,
     });
   }
+
+  const savePickedLocation = useCallback(() => {
+    if (!selectedLocation) {
+      Alert.alert("No location picked", "Please pick a location first", [
+        {text: "Okay"},
+      ]);
+      return;
+    }
+
+    navigation.navigate("AddPlace", {pickedLocation: selectedLocation});
+  }, [navigation, selectedLocation]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          name="save"
+          size={24}
+          color={colors.light}
+          onPress={savePickedLocation}
+        />
+      ),
+    });
+  }, [navigation, selectedLocation]);
 
   return (
     <MapView style={styles.map} onPress={pickLocationHandler} {...mapOptions}>
