@@ -4,11 +4,7 @@ import * as Location from "expo-location";
 import {getMapPreview} from "../../utils/locations";
 import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-
-interface ICoordinates {
-  lat: string;
-  lng: string;
-}
+import {ICoordinates} from "../../models";
 
 export function LocationPicker() {
   const {navigate} = useNavigation();
@@ -60,7 +56,7 @@ export function LocationPicker() {
     if (coords) {
       const {latitude, longitude} = coords;
 
-      setPickedLocation({lat: latitude.toString(), lng: longitude.toString()});
+      setPickedLocation({lat: latitude, lng: longitude});
     }
   };
 
