@@ -5,15 +5,7 @@ import {
   PermissionStatus,
 } from "expo-image-picker";
 import {useState} from "react";
-import {
-  Alert,
-  Button,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  StyleSheet,
-} from "react-native";
+import {Alert, ScrollView, View, Image, Text, StyleSheet} from "react-native";
 import {ButtonOutlined} from "../UI";
 
 export function ImagePicker() {

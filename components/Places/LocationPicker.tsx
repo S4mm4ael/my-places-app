@@ -3,16 +3,34 @@ import {ButtonOutlined} from "../UI";
 import * as Location from "expo-location";
 import {getMapPreview} from "../../utils/locations";
 import {useEffect, useState} from "react";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import {ICoordinates} from "../../models";
 
 export function LocationPicker() {
   const {navigate} = useNavigation();
+  const route = useRoute();
+
+  const mapPickedLocation = (route.params as {pickedLocation: ICoordinates})
+    ?.pickedLocation
+    ? {
+        lat: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lat,
+        lng: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lng,
+      }
+    : undefined;
 
   const [pickedLocation, setPickedLocation] = useState<
     ICoordinates | undefined
   >(undefined);
 
+  useEffect(() => {
+    if (mapPickedLocation) {
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [mapPickedLocation]);
+
+  //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
   useEffect(() => {
     checkIfLocationEnabled();
     getCurrentLocation();
@@ -51,7 +69,6 @@ export function LocationPicker() {
     }
 
     const {coords} = await Location.getCurrentPositionAsync();
-    console.log(coords);
 
     if (coords) {
       const {latitude, longitude} = coords;
