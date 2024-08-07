@@ -21,7 +21,6 @@ export function Map({navigation}: {navigation: NavigationProp<any>}) {
   >(undefined);
 
   function pickLocationHandler(event: any) {
-    console.log("event", event);
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
       lng: event.nativeEvent.coordinate.longitude,

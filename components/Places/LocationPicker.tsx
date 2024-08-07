@@ -1,40 +1,38 @@
 import {View, StyleSheet, Alert, Text, Image} from "react-native";
 import {ButtonOutlined} from "../UI";
 import * as Location from "expo-location";
-import {getMapPreview} from "../../utils/locations";
 import {useEffect, useState} from "react";
-import {useNavigation, useRoute} from "@react-navigation/native";
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
 import {ICoordinates} from "../../models";
+import MapView, {MapViewProps, Marker} from "react-native-maps";
 
 export function LocationPicker() {
   const {navigate} = useNavigation();
   const route = useRoute();
-
-  const mapPickedLocation = (route.params as {pickedLocation: ICoordinates})
-    ?.pickedLocation
-    ? {
-        lat: (route.params as {pickedLocation: ICoordinates}).pickedLocation
-          .lat,
-        lng: (route.params as {pickedLocation: ICoordinates}).pickedLocation
-          .lng,
-      }
-    : undefined;
+  const isFocused = useIsFocused();
 
   const [pickedLocation, setPickedLocation] = useState<
     ICoordinates | undefined
   >(undefined);
 
   useEffect(() => {
-    if (mapPickedLocation) {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lat,
+        lng: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lng,
+      };
+
       setPickedLocation(mapPickedLocation);
     }
-  }, [mapPickedLocation]);
+  }, [route, isFocused]);
 
   //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
-  useEffect(() => {
-    checkIfLocationEnabled();
-    getCurrentLocation();
-  }, []);
+  // useEffect(() => {
+  //   checkIfLocationEnabled();
+  //   getCurrentLocation();
+  // }, []);
 
   const checkIfLocationEnabled = async () => {
     let enabled = await Location.hasServicesEnabledAsync(); //returns true or false
@@ -86,7 +84,25 @@ export function LocationPicker() {
   return (
     <View style={styles.container}>
       <View style={styles.mapPreview}>
-        {pickedLocation ? (
+        <MapView
+          style={styles.mapImage}
+          initialRegion={{
+            latitude: pickedLocation ? pickedLocation.lat : 37.78,
+            longitude: pickedLocation ? pickedLocation.lng : -122.43,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: pickedLocation ? pickedLocation.lat : 37.78,
+              longitude: pickedLocation ? pickedLocation.lng : -122.43,
+            }}
+          />
+        </MapView>
+        {
+          //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
+          /* {pickedLocation ? (
           <Image
             source={{
               uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
@@ -95,7 +111,8 @@ export function LocationPicker() {
           />
         ) : (
           locationPreview
-        )}
+        )} */
+        }
       </View>
       <View style={styles.actions}>
         <ButtonOutlined
