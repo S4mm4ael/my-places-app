@@ -6,7 +6,11 @@ import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
 import {ICoordinates} from "../../models";
 import MapView, {MapViewProps, Marker} from "react-native-maps";
 
-export function LocationPicker() {
+export function LocationPicker({
+  onPickLocation,
+}: {
+  onPickLocation: (location: ICoordinates) => void;
+}) {
   const {navigate} = useNavigation();
   const route = useRoute();
   const isFocused = useIsFocused();
@@ -28,25 +32,30 @@ export function LocationPicker() {
     }
   }, [route, isFocused]);
 
+  useEffect(() => {
+    if (!pickedLocation) return;
+    onPickLocation(pickedLocation);
+  }, [pickedLocation]);
+
   //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
   // useEffect(() => {
   //   checkIfLocationEnabled();
   //   getCurrentLocation();
   // }, []);
 
-  const checkIfLocationEnabled = async () => {
-    let enabled = await Location.hasServicesEnabledAsync(); //returns true or false
-    if (!enabled) {
-      Alert.alert("Location not enabled", "Please enable your Location", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {text: "OK", onPress: () => console.log("OK Pressed")},
-      ]);
-    }
-  };
+  // const checkIfLocationEnabled = async () => {
+  //   let enabled = await Location.hasServicesEnabledAsync(); //returns true or false
+  //   if (!enabled) {
+  //     Alert.alert("Location not enabled", "Please enable your Location", [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel Pressed"),
+  //         style: "cancel",
+  //       },
+  //       {text: "OK", onPress: () => console.log("OK Pressed")},
+  //     ]);
+  //   }
+  // };
 
   const getCurrentLocation = async () => {
     let {status} = await Location.requestForegroundPermissionsAsync(); //used for the pop up box where we give permission to use location
@@ -72,6 +81,7 @@ export function LocationPicker() {
       const {latitude, longitude} = coords;
 
       setPickedLocation({lat: latitude, lng: longitude});
+      onPickLocation({lat: latitude, lng: longitude});
     }
   };
 

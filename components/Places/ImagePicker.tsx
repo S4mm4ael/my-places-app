@@ -8,7 +8,11 @@ import {useState} from "react";
 import {Alert, ScrollView, View, Image, Text, StyleSheet} from "react-native";
 import {ButtonOutlined} from "../UI";
 
-export function ImagePicker() {
+export function ImagePicker({
+  onTakeImage,
+}: {
+  onTakeImage: (imageUri: string | undefined) => void;
+}) {
   const [pickedImage, setPickedImage] = useState<string | undefined>();
 
   const [cameraPermission, requestPermission] = useCameraPermissions();
@@ -46,6 +50,7 @@ export function ImagePicker() {
 
     const image = await launchCameraAsync(cameraOptions);
     setPickedImage(image?.assets?.[0]?.uri);
+    onTakeImage(image?.assets?.[0]?.uri);
   }
 
   let imagePreview = <Text>No image picked yet.</Text>;
