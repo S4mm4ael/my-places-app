@@ -3,6 +3,7 @@ import {ButtonOutlined} from "../UI";
 import * as Location from "expo-location";
 import {getMapPreview} from "../../utils/locations";
 import {useEffect, useState} from "react";
+import {useNavigation} from "@react-navigation/native";
 
 interface ICoordinates {
   lat: string;
@@ -10,6 +11,8 @@ interface ICoordinates {
 }
 
 export function LocationPicker() {
+  const {navigate} = useNavigation();
+
   const [pickedLocation, setPickedLocation] = useState<
     ICoordinates | undefined
   >(undefined);
@@ -61,7 +64,9 @@ export function LocationPicker() {
     }
   };
 
-  function pickOnMapHandler() {}
+  function pickOnMapHandler() {
+    navigate({name: "Map"});
+  }
 
   let locationPreview = <Text>No location picked yet.</Text>;
 

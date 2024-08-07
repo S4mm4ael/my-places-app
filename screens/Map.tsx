@@ -1,4 +1,4 @@
-import {View, Text} from "react-native";
+import {StyleSheet} from "react-native";
 import MapView from "react-native-maps";
 
 const mapOptions = {
@@ -11,5 +11,11 @@ const mapOptions = {
 };
 
 export function Map() {
-  return <MapView {...mapOptions}></MapView>;
+  return <MapView style={styles.map} {...mapOptions}></MapView>;
 }
+
+const styles = StyleSheet.create({
+  map: {
+    flex: 1,
+  },
+});
