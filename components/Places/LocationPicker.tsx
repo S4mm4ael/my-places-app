@@ -1,63 +1,131 @@
 import {View, StyleSheet, Alert, Text, Image} from "react-native";
 import {ButtonOutlined} from "../UI";
-import {
-  getCurrentPositionAsync,
-  useForegroundPermissions,
-  PermissionStatus,
-} from "expo-location";
-import {getMapPreview} from "../../utils/locations";
-import {useState} from "react";
+import * as Location from "expo-location";
+import {useEffect, useState} from "react";
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
+import {ICoordinates} from "../../models";
+import MapView, {MapViewProps, Marker} from "react-native-maps";
+import {getAddressFromCoordinates} from "../../utils/locations";
 
-export function LocationPicker() {
+export function LocationPicker({
+  onPickLocation,
+  setAddress,
+}: {
+  onPickLocation: (location: ICoordinates) => void;
+  setAddress: (address: string) => void;
+}) {
+  const {navigate} = useNavigation();
+  const route = useRoute();
+  const isFocused = useIsFocused();
+
   const [pickedLocation, setPickedLocation] = useState<
-    Coordinates | undefined
+    ICoordinates | undefined
   >();
 
-  async function verifyUserPermissions() {
-    const [locationPermissionInformation, requestLocationPermission] =
-      useForegroundPermissions();
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lat,
+        lng: (route.params as {pickedLocation: ICoordinates}).pickedLocation
+          .lng,
+      };
 
-    if (
-      locationPermissionInformation?.status === PermissionStatus.UNDETERMINED
-    ) {
-      const permissionResponce = await requestLocationPermission();
-
-      return permissionResponce.granted;
+      setPickedLocation(mapPickedLocation);
     }
+  }, [route, isFocused]);
 
-    if (locationPermissionInformation?.status === PermissionStatus.DENIED) {
-      Alert.alert(
-        "Permission Denied",
-        "You need to grant location permission to use this feature"
+  useEffect(() => {
+    if (!pickedLocation) return;
+
+    async function handleLocation() {
+      const address = await getAddressFromCoordinates(
+        pickedLocation.lat,
+        pickedLocation.lng
       );
-      return false;
+      onPickLocation(pickedLocation);
+      setAddress(address ?? "");
     }
 
-    return true;
-  }
+    handleLocation();
+  }, [pickedLocation]);
 
-  async function getLocationHandler() {
-    const hasPermission = await verifyUserPermissions();
+  //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
+  // useEffect(() => {
+  //   checkIfLocationEnabled();
+  //   getCurrentLocation();
+  // }, []);
 
-    if (!hasPermission) {
-      return;
+  // const checkIfLocationEnabled = async () => {
+  //   let enabled = await Location.hasServicesEnabledAsync(); //returns true or false
+  //   if (!enabled) {
+  //     Alert.alert("Location not enabled", "Please enable your Location", [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel Pressed"),
+  //         style: "cancel",
+  //       },
+  //       {text: "OK", onPress: () => console.log("OK Pressed")},
+  //     ]);
+  //   }
+  // };
+
+  const getCurrentLocation = async () => {
+    let {status} = await Location.requestForegroundPermissionsAsync(); //used for the pop up box where we give permission to use location
+
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission denied",
+        "Allow the app to use the location services",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {text: "OK", onPress: () => console.log("OK Pressed")},
+        ]
+      );
     }
 
-    const location = await getCurrentPositionAsync();
-    setPickedLocation({
-      lat: location.coords.latitude,
-      lng: location.coords.longitude,
-    });
+    const {coords} = await Location.getCurrentPositionAsync();
+
+    if (coords) {
+      const {latitude, longitude} = coords;
+
+      setPickedLocation({lat: latitude, lng: longitude});
+      onPickLocation({lat: latitude, lng: longitude});
+    }
+  };
+
+  function pickOnMapHandler() {
+    navigate({name: "Map"});
   }
 
-  function pickOnMapHandler() {}
-
-  let locationPreview = <Text>No location picked yet.</Text>;
+  //let locationPreview = <Text>No location picked yet.</Text>;
 
   return (
     <View style={styles.container}>
       <View style={styles.mapPreview}>
-        {pickedLocation ? (
+        <MapView
+          style={styles.mapImage}
+          initialRegion={{
+            latitude: pickedLocation ? pickedLocation.lat : 37.78,
+            longitude: pickedLocation ? pickedLocation.lng : -122.43,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: pickedLocation ? pickedLocation.lat : 37.78,
+              longitude: pickedLocation ? pickedLocation.lng : -122.43,
+            }}
+          />
+        </MapView>
+        {
+          //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
+          /* {pickedLocation ? (
           <Image
             source={{
               uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
@@ -66,13 +134,14 @@ export function LocationPicker() {
           />
         ) : (
           locationPreview
-        )}
+        )} */
+        }
       </View>
       <View style={styles.actions}>
         <ButtonOutlined
           name="location"
           title="Locate user"
-          onPress={getLocationHandler}
+          onPress={getCurrentLocation}
         />
         <ButtonOutlined
           name="map"

@@ -1,16 +1,18 @@
+import {ICoordinates} from "./location";
+
 interface IPlace {
   title: string;
   address: string;
-  location: string;
+  location: ICoordinates;
   imageUri: string;
-  id?: string;
+  id: string;
 }
 
 class Place implements IPlace {
   constructor(
     public title: string,
     public address: string,
-    public location: string,
+    public location: ICoordinates,
     public imageUri: string
   ) {
     this.title = title;
@@ -19,6 +21,7 @@ class Place implements IPlace {
     this.imageUri = imageUri;
     this.id = new Date().getTime().toString();
   }
+  id: string;
 }
 
 export {IPlace, Place};

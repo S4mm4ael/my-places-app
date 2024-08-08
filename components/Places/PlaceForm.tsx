@@ -1,13 +1,44 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {ScrollView, TextInput, View, Text, StyleSheet} from "react-native";
 import {ImagePicker} from "./ImagePicker";
 import {LocationPicker} from "./LocationPicker";
+import {Button} from "../UI/Button";
+import {ICoordinates, IPickedLocation, IPlace, Place} from "../../models";
 
-export function PlaceForm() {
+interface PlaceFormProps {
+  onCreatePlace: (place: IPlace) => void;
+}
+
+export function PlaceForm({onCreatePlace}: PlaceFormProps) {
   const [enteredTitle, setEnteredTitle] = useState("");
+  const [selectedImage, setSelectedImage] = useState<string | undefined>();
+  const [selectedLocation, setSelectedLocation] = useState<
+    ICoordinates | undefined
+  >(undefined);
+  const [selectedAddress, setSelectedAddress] = useState<string | undefined>();
 
   function changeTitleHandler(enteredTitle: string) {
     setEnteredTitle(enteredTitle);
+  }
+
+  const takeImageHandler = useCallback((imageUri: string | undefined) => {
+    imageUri && setSelectedImage(imageUri);
+  }, []);
+
+  const pickLocationHandler = useCallback((location: IPickedLocation) => {
+    setSelectedLocation(location);
+  }, []);
+
+  function savePlaceHandler() {
+    const placeData: IPlace = new Place(
+      enteredTitle,
+      selectedAddress ?? "",
+      selectedLocation ?? {lat: 0.141241, lng: 127.121},
+      selectedImage ?? ""
+    );
+
+    console.log("placeData", placeData);
+    onCreatePlace(placeData);
   }
 
   return (
@@ -21,8 +52,12 @@ export function PlaceForm() {
           placeholder="Enter place title"
         />
         <Text style={styles.label}>Picture</Text>
-        <ImagePicker />
-        <LocationPicker />
+        <ImagePicker onTakeImage={takeImageHandler} />
+        <LocationPicker
+          onPickLocation={pickLocationHandler}
+          setAddress={setSelectedAddress}
+        />
+        <Button onPress={savePlaceHandler} title="Save place" />
       </View>
     </ScrollView>
   );

@@ -1,4 +1,4 @@
 export {AddPlace} from "./AddPlace";
 export {AllPlaces} from "./AllPlaces";
-export {} from "./Map";
+export {Map} from "./Map";
 export {} from "./PlaceDetails";
