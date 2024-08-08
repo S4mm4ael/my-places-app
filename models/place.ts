@@ -5,7 +5,7 @@ interface IPlace {
   address: string;
   location: ICoordinates;
   imageUri: string;
-  id?: string;
+  id: string;
 }
 
 class Place implements IPlace {
@@ -21,7 +21,7 @@ class Place implements IPlace {
     this.imageUri = imageUri;
     this.id = new Date().getTime().toString();
   }
-  id?: string | undefined;
+  id: string;
 }
 
 export {IPlace, Place};

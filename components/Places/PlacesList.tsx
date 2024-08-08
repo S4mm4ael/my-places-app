@@ -1,7 +1,12 @@
 import {FlatList, Text, View, StyleSheet} from "react-native";
-import PlaceItem from "./PlaceItem";
+import {PlaceItem} from "./PlaceItem";
+import {IPlace} from "../../models";
 
-export function PlacesList({places}) {
+interface PlacesListProps {
+  places: IPlace[];
+}
+
+export function PlacesList({places}: PlacesListProps) {
   if (!places || places.length === 0) {
     return (
       <View style={styles.noPlacesContainer}>
@@ -16,7 +21,9 @@ export function PlacesList({places}) {
     <FlatList
       data={places}
       keyExtractor={(item) => item.id}
-      renderItem={({item}) => <PlaceItem place={item} />}
+      renderItem={({item}) => (
+        <PlaceItem place={item} onSelect={() => console.log("selected")} />
+      )}
       contentContainerStyle={styles.list}
     />
   );

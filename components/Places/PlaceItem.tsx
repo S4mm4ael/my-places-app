@@ -1,5 +1,6 @@
 import {Pressable, View, Image, Text, StyleSheet} from "react-native";
 import {IPlace} from "../../models/place";
+import {Ionicons} from "@expo/vector-icons";
 
 interface IPlaceItem {
   place: IPlace;
@@ -7,12 +8,25 @@ interface IPlaceItem {
 }
 
 export function PlaceItem({place, onSelect}: IPlaceItem) {
+  let imageThumb = <Ionicons name="image" size={24} color="black" />;
+
+  if (place.imageUri) {
+    imageThumb = <Image source={{uri: place.imageUri}} style={styles.image} />;
+  }
+
+  console.log(place);
+
   return (
     <Pressable onPress={onSelect} style={styles.container}>
-      <Image source={{uri: place.imageUri}} style={styles.image} />
+      {imageThumb}
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{place.title}</Text>
-        <Text style={styles.address}>{place.address}</Text>
+        {place.address && <Text style={styles.address}>{place.address}</Text>}
+        {place.location && (
+          <Text style={styles.coords}>
+            Lat:{place.location.lat} Lon: {place.location.lng}
+          </Text>
+        )}
       </View>
     </Pressable>
   );
@@ -49,6 +63,10 @@ const styles = StyleSheet.create({
   },
   address: {
     fontSize: 16,
+    color: "#666",
+  },
+  coords: {
+    fontSize: 10,
     color: "#666",
   },
 });

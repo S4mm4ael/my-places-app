@@ -32,9 +32,9 @@ export function PlaceForm({onCreatePlace}: PlaceFormProps) {
   function savePlaceHandler() {
     const placeData: IPlace = new Place(
       enteredTitle,
-      selectedImage ?? "",
+      selectedAddress ?? "",
       selectedLocation ?? {lat: 0.141241, lng: 127.121},
-      selectedAddress ?? ""
+      selectedImage ?? ""
     );
 
     console.log("placeData", placeData);
