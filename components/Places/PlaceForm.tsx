@@ -3,14 +3,19 @@ import {ScrollView, TextInput, View, Text, StyleSheet} from "react-native";
 import {ImagePicker} from "./ImagePicker";
 import {LocationPicker} from "./LocationPicker";
 import {Button} from "../UI/Button";
-import {ICoordinates} from "../../models";
+import {ICoordinates, IPickedLocation, IPlace, Place} from "../../models";
 
-export function PlaceForm() {
+interface PlaceFormProps {
+  onCreatePlace: (place: IPlace) => void;
+}
+
+export function PlaceForm({onCreatePlace}: PlaceFormProps) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | undefined>();
   const [selectedLocation, setSelectedLocation] = useState<
     ICoordinates | undefined
   >(undefined);
+  const [selectedAddress, setSelectedAddress] = useState<string | undefined>();
 
   function changeTitleHandler(enteredTitle: string) {
     setEnteredTitle(enteredTitle);
@@ -20,12 +25,20 @@ export function PlaceForm() {
     imageUri && setSelectedImage(imageUri);
   }, []);
 
-  const pickLocationHandler = useCallback((location: ICoordinates) => {
+  const pickLocationHandler = useCallback((location: IPickedLocation) => {
     setSelectedLocation(location);
   }, []);
 
   function savePlaceHandler() {
-    console.log("Saved place", {enteredTitle, selectedImage, selectedLocation});
+    const placeData: IPlace = new Place(
+      enteredTitle,
+      selectedImage ?? "",
+      selectedLocation ?? {lat: 0.141241, lng: 127.121},
+      selectedAddress ?? ""
+    );
+
+    console.log("placeData", placeData);
+    onCreatePlace(placeData);
   }
 
   return (
@@ -40,7 +53,10 @@ export function PlaceForm() {
         />
         <Text style={styles.label}>Picture</Text>
         <ImagePicker onTakeImage={takeImageHandler} />
-        <LocationPicker onPickLocation={pickLocationHandler} />
+        <LocationPicker
+          onPickLocation={pickLocationHandler}
+          setAddress={setSelectedAddress}
+        />
         <Button onPress={savePlaceHandler} title="Save place" />
       </View>
     </ScrollView>

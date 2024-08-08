@@ -5,11 +5,14 @@ import {useEffect, useState} from "react";
 import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native";
 import {ICoordinates} from "../../models";
 import MapView, {MapViewProps, Marker} from "react-native-maps";
+import {getAddressFromCoordinates} from "../../utils/locations";
 
 export function LocationPicker({
   onPickLocation,
+  setAddress,
 }: {
   onPickLocation: (location: ICoordinates) => void;
+  setAddress: (address: string) => void;
 }) {
   const {navigate} = useNavigation();
   const route = useRoute();
@@ -17,7 +20,7 @@ export function LocationPicker({
 
   const [pickedLocation, setPickedLocation] = useState<
     ICoordinates | undefined
-  >(undefined);
+  >();
 
   useEffect(() => {
     if (isFocused && route.params) {
@@ -34,7 +37,17 @@ export function LocationPicker({
 
   useEffect(() => {
     if (!pickedLocation) return;
-    onPickLocation(pickedLocation);
+
+    async function handleLocation() {
+      const address = await getAddressFromCoordinates(
+        pickedLocation.lat,
+        pickedLocation.lng
+      );
+      onPickLocation(pickedLocation);
+      setAddress(address ?? "");
+    }
+
+    handleLocation();
   }, [pickedLocation]);
 
   //ISNT WORKING SINCE API GOOGLE MAPS IS NOT WORKING WITHOUT CREDIT CARD BILLING
@@ -59,7 +72,7 @@ export function LocationPicker({
 
   const getCurrentLocation = async () => {
     let {status} = await Location.requestForegroundPermissionsAsync(); //used for the pop up box where we give permission to use location
-    console.log(status);
+
     if (status !== "granted") {
       Alert.alert(
         "Permission denied",
@@ -89,7 +102,7 @@ export function LocationPicker({
     navigate({name: "Map"});
   }
 
-  let locationPreview = <Text>No location picked yet.</Text>;
+  //let locationPreview = <Text>No location picked yet.</Text>;
 
   return (
     <View style={styles.container}>

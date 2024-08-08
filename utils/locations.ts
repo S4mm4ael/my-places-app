@@ -5,4 +5,22 @@ function getMapPreview(lat: number, lng: number) {
   return imagePreview;
 }
 
-export {getMapPreview};
+function getAddressFromCoordinates(lat: number, lng: number) {
+  let address;
+
+  fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.results) {
+        throw new Error("Failed to fetch address!");
+      }
+
+      address = data.results[0].formatted_address;
+    });
+
+  return address;
+}
+
+export {getMapPreview, getAddressFromCoordinates};
