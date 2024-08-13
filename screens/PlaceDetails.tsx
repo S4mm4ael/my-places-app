@@ -1,15 +1,26 @@
-import {ScrollView, View, Text, StyleSheet} from "react-native";
+import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
 import {ButtonOutlined} from "../components/UI";
+import {useEffect} from "react";
 
-function PlaceDetails() {
+function PlaceDetails({route}) {
+  const selectedPlaceId = route.params.placeId;
+
   function pressOnMapHandler() {
     // Implement the handler logic here
   }
 
+  useEffect(() => {
+    // Fetch the place details using the placeId from the route params
+  }, [selectedPlaceId]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.addressContainer}>
-        <Text style={styles.addressText}>Address</Text>
+      <Image style={styles.image} />
+      <View style={styles.locationContainer}>
+        <View style={styles.addressContainer}>
+          <Text style={styles.addressText}>Location lan and lng</Text>
+          <Text style={styles.addressText}>Address</Text>
+        </View>
       </View>
       <ButtonOutlined
         title="View on map"
@@ -38,12 +49,21 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 3,
   },
+  locationContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   addressText: {
     fontSize: 16,
     color: "#333",
   },
   button: {
     marginTop: 20,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    backgroundColor: "#ccc",
   },
 });
 
