@@ -53,7 +53,7 @@ async function insertPlace(place: IPlace) {
   return promise;
 }
 
-function loadPlaces(): Promise<IPlace[]> {
+async function loadPlaces(): Promise<IPlace[]> {
   const promise = new Promise(async (resolve, reject) => {
     database.transaction((tx) => {
       tx.executeSql(
@@ -90,4 +90,35 @@ function loadPlaces(): Promise<IPlace[]> {
   return promise;
 }
 
-export {init, insertPlace, loadPlaces};
+async function fetchPlaceDetails(id: string) {
+  const promise = new Promise(async (resolve, reject) => {
+    database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM places WHERE id = ?`,
+        [id],
+        (_, result) => {
+          const dp = result.rows._array[0];
+          const place = new Place(
+            dp.title,
+            dp.address,
+            {
+              lat: dp.lat,
+              lng: dp.lng,
+            },
+            dp.imageUri,
+            dp.id.toString()
+          );
+          console.log(place);
+          resolve(place);
+        },
+        (_, err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
+    });
+  });
+  return promise;
+}
+
+export {init, insertPlace, loadPlaces, fetchPlaceDetails};

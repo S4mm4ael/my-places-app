@@ -11,6 +11,7 @@ export function PlacesList({places}: PlacesListProps) {
   const navigation = useNavigation();
 
   function selectPlaceHandler(id: string) {
+    //@ts-ignore:next-line
     navigation.navigate("PlaceDetails", {placeId: id});
   }
 

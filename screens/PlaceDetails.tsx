@@ -1,6 +1,7 @@
 import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
 import {ButtonOutlined} from "../components/UI";
 import {useEffect} from "react";
+import {fetchPlaceDetails} from "../utils/database";
 
 function PlaceDetails({route}: {route: any}) {
   const selectedPlaceId = route.params.placeId;
@@ -10,7 +11,10 @@ function PlaceDetails({route}: {route: any}) {
   }
 
   useEffect(() => {
-    // Fetch the place details using the placeId from the route params
+    async function loadPlaceDetails() {
+      await fetchPlaceDetails(selectedPlaceId);
+    }
+    loadPlaceDetails();
   }, [selectedPlaceId]);
 
   return (
@@ -40,6 +44,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     backgroundColor: "#f8f8f8",
+    gap: 20,
   },
   addressContainer: {
     marginBottom: 20,
@@ -67,6 +72,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     backgroundColor: "#ccc",
+    borderRadius: 10,
+    // Shadow properties for iOS
+    shadowColor: "#000", // Darker shadow color
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Elevation for Android
+    elevation: 5, // Increased elevation value
   },
 });
 
