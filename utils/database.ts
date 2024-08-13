@@ -39,9 +39,11 @@ async function insertPlace(place: IPlace) {
           place.location.lng,
         ],
         (_, result) => {
+          console.log(result);
           resolve(result);
         },
         (_, err) => {
+          console.log(err);
           reject(err);
         }
       );

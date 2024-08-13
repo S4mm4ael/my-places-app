@@ -1,11 +1,13 @@
 import {useNavigation} from "@react-navigation/native";
 import {PlaceForm} from "../components/Places";
 import {IPlace} from "../models";
+import {insertPlace} from "../utils/database";
 
 export function AddPlace() {
   const navigation = useNavigation();
 
-  function createPlaceHandler(placeData: IPlace) {
+  async function createPlaceHandler(placeData: IPlace) {
+    insertPlace(placeData);
     navigation.navigate("AllPlaces", {place: placeData});
   }
 
