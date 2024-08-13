@@ -15,10 +15,27 @@ const mapOptions: MapViewProps = {
   },
 };
 
-export function Map({navigation}: {navigation: NavigationProp<any>}) {
+export function Map({
+  navigation,
+  route,
+}: {
+  navigation: NavigationProp<any>;
+  route: any;
+}) {
+  const initialLocation = route.params?.initialLocation as ICoordinates;
+
+  if (initialLocation) {
+    mapOptions.initialRegion = {
+      latitude: initialLocation.lat,
+      longitude: initialLocation.lng,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
+  }
+
   const [selectedLocation, setSelectedLocation] = useState<
     ICoordinates | undefined
-  >(undefined);
+  >(initialLocation);
 
   function pickLocationHandler(event: any) {
     setSelectedLocation({
@@ -39,6 +56,8 @@ export function Map({navigation}: {navigation: NavigationProp<any>}) {
   }, [navigation, selectedLocation]);
 
   useLayoutEffect(() => {
+    if (initialLocation) return;
+
     navigation.setOptions({
       headerRight: () => (
         <IconButton
@@ -49,7 +68,7 @@ export function Map({navigation}: {navigation: NavigationProp<any>}) {
         />
       ),
     });
-  }, [navigation, selectedLocation]);
+  }, [navigation, selectedLocation, initialLocation]);
 
   return (
     <MapView style={styles.map} onPress={pickLocationHandler} {...mapOptions}>

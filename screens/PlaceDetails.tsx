@@ -10,14 +10,14 @@ function PlaceDetails({route, navigation}: {route: any; navigation: any}) {
   const [place, setPlace] = useState<IPlace>();
 
   function pressOnMapHandler() {
-    // Implement the handler logic here
+    navigation.navigate("Map", {initialLocation: place?.location});
   }
 
   useEffect(() => {
     async function loadPlaceDetails() {
       const place = await fetchPlaceDetails(selectedPlaceId);
       console.log(place);
-      setPlace(place);
+      setPlace(place as IPlace);
       navigation.setOptions({title: place?.title});
     }
     loadPlaceDetails();
