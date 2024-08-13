@@ -1,13 +1,21 @@
 import {FlatList, Text, View, StyleSheet} from "react-native";
 import {PlaceItem} from "./PlaceItem";
 import {IPlace} from "../../models";
+import {useNavigation} from "@react-navigation/native";
 
 interface PlacesListProps {
   places: IPlace[];
 }
 
 export function PlacesList({places}: PlacesListProps) {
-  if (!places || places.length === 0) {
+  const navigation = useNavigation();
+
+  function selectPlaceHandler(id: string) {
+    //@ts-ignore:next-line
+    navigation.navigate("PlaceDetails", {placeId: id});
+  }
+
+  if (!places) {
     return (
       <View style={styles.noPlacesContainer}>
         <Text style={styles.noPlacesText}>
@@ -22,7 +30,7 @@ export function PlacesList({places}: PlacesListProps) {
       data={places}
       keyExtractor={(item) => item.id}
       renderItem={({item}) => (
-        <PlaceItem place={item} onSelect={() => console.log("selected")} />
+        <PlaceItem place={item} onSelect={selectPlaceHandler} />
       )}
       contentContainerStyle={styles.list}
     />

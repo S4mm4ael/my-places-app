@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 1,
     borderRadius: 5,
+    // Shadow properties for iOS
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Elevation for Android
+    elevation: 5,
   },
   title: {
     color: "blue",

@@ -13,15 +13,15 @@ class Place implements IPlace {
     public title: string,
     public address: string,
     public location: ICoordinates,
-    public imageUri: string
+    public imageUri: string,
+    public id: string
   ) {
     this.title = title;
     this.address = address;
     this.location = location;
     this.imageUri = imageUri;
-    this.id = new Date().getTime().toString();
+    this.id = id;
   }
-  id: string;
 }
 
 export {IPlace, Place};
