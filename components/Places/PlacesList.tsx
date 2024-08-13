@@ -7,7 +7,7 @@ interface PlacesListProps {
 }
 
 export function PlacesList({places}: PlacesListProps) {
-  if (!places || places.length === 0) {
+  if (!places) {
     return (
       <View style={styles.noPlacesContainer}>
         <Text style={styles.noPlacesText}>
