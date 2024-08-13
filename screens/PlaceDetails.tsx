@@ -2,7 +2,7 @@ import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
 import {ButtonOutlined} from "../components/UI";
 import {useEffect} from "react";
 
-function PlaceDetails({route}) {
+function PlaceDetails({route}: {route: any}) {
   const selectedPlaceId = route.params.placeId;
 
   function pressOnMapHandler() {
@@ -22,12 +22,15 @@ function PlaceDetails({route}) {
           <Text style={styles.addressText}>Address</Text>
         </View>
       </View>
-      <ButtonOutlined
-        title="View on map"
-        name={"key"}
-        onPress={pressOnMapHandler}
-        style={styles.button}
-      />
+      <View style={styles.locationContainer}>
+        <Text style={styles.addressText}>Location on map</Text>
+        <ButtonOutlined
+          title="View on map"
+          name={"map"}
+          onPress={pressOnMapHandler}
+          style={styles.button}
+        />
+      </View>
     </ScrollView>
   );
 }

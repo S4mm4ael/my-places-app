@@ -4,7 +4,7 @@ import {Ionicons} from "@expo/vector-icons";
 
 interface IPlaceItem {
   place: IPlace;
-  onSelect: () => void;
+  onSelect: (placeId: string) => void;
 }
 
 export function PlaceItem({place, onSelect}: IPlaceItem) {
@@ -14,10 +14,8 @@ export function PlaceItem({place, onSelect}: IPlaceItem) {
     imageThumb = <Image source={{uri: place.imageUri}} style={styles.image} />;
   }
 
-  console.log(place);
-
   return (
-    <Pressable onPress={onSelect} style={styles.container}>
+    <Pressable onPress={() => onSelect(place.id)} style={styles.container}>
       {imageThumb}
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{place.title}</Text>
