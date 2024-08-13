@@ -1,10 +1,13 @@
 import {ScrollView, View, Text, StyleSheet, Image} from "react-native";
 import {ButtonOutlined} from "../components/UI";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {fetchPlaceDetails} from "../utils/database";
+import {IPlace} from "../models";
 
-function PlaceDetails({route}: {route: any}) {
+function PlaceDetails({route, navigation}: {route: any; navigation: any}) {
   const selectedPlaceId = route.params.placeId;
+
+  const [place, setPlace] = useState<IPlace>();
 
   function pressOnMapHandler() {
     // Implement the handler logic here
@@ -12,18 +15,46 @@ function PlaceDetails({route}: {route: any}) {
 
   useEffect(() => {
     async function loadPlaceDetails() {
-      await fetchPlaceDetails(selectedPlaceId);
+      const place = await fetchPlaceDetails(selectedPlaceId);
+      console.log(place);
+      setPlace(place);
+      navigation.setOptions({title: place?.title});
     }
     loadPlaceDetails();
   }, [selectedPlaceId]);
 
+  function renderSeparator() {
+    return <View style={styles.separator} />;
+  }
+
+  if (!place) {
+    return <Text style={styles.loaderText}>Loading...</Text>;
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image style={styles.image} />
+      <Image style={styles.image} src={place?.imageUri} />
       <View style={styles.locationContainer}>
         <View style={styles.addressContainer}>
-          <Text style={styles.addressText}>Location lan and lng</Text>
-          <Text style={styles.addressText}>Address</Text>
+          {place?.location ? (
+            <>
+              <Text style={styles.labelText}>Latitude: </Text>
+              <Text style={styles.addressText}>{place.location.lat}</Text>
+              <Text style={styles.labelText}>Longtitude: </Text>
+              <Text style={styles.addressText}>{place?.location.lng}</Text>
+            </>
+          ) : (
+            <Text>No location found</Text>
+          )}
+          {renderSeparator()}
+          {place?.address ? (
+            <>
+              <Text style={styles.labelText}>Address:</Text>
+              <Text style={styles.addressText}>{place.address}</Text>
+            </>
+          ) : (
+            <Text>No corresponding address found</Text>
+          )}
         </View>
       </View>
       <View style={styles.locationContainer}>
@@ -80,6 +111,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     // Elevation for Android
     elevation: 5, // Increased elevation value
+  },
+  loaderText: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  labelText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    marginVertical: 20,
   },
 });
 
