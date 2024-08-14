@@ -7,6 +7,17 @@ import {IconButton} from "./components/UI";
 import {init} from "./utils/database";
 import AppLoading from "expo-app-loading";
 import PlaceDetails from "./screens/PlaceDetails";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    };
+  },
+});
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +36,20 @@ export default function App() {
 
   if (!dbInitialized) {
     return <AppLoading />;
+  }
+
+  function scheduleNotificationHandler() {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Check your places",
+        body: "Don't forget to check your places today",
+      },
+      trigger: {
+        hour: 20,
+        minute: 0,
+        repeats: true,
+      },
+    });
   }
 
   return (
