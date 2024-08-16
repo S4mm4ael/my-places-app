@@ -49,7 +49,7 @@ export function PlaceForm({onCreatePlace}: PlaceFormProps) {
         title: "Place Saved!",
         body: `Your place "${enteredTitle}" has been saved successfully.`,
       },
-      trigger: null, // Send immediately
+      trigger: null,
     });
   }
 
