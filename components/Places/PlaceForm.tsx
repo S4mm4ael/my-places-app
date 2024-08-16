@@ -3,7 +3,8 @@ import {ScrollView, TextInput, View, Text, StyleSheet} from "react-native";
 import {ImagePicker} from "./ImagePicker";
 import {LocationPicker} from "./LocationPicker";
 import {Button} from "../UI/Button";
-import {ICoordinates, IPickedLocation, IPlace, Place} from "../../models";
+import {ICoordinates, IPlace, Place} from "../../models";
+import * as Notifications from "expo-notifications";
 
 interface PlaceFormProps {
   onCreatePlace: (place: IPlace) => void;
@@ -25,20 +26,31 @@ export function PlaceForm({onCreatePlace}: PlaceFormProps) {
     imageUri && setSelectedImage(imageUri);
   }, []);
 
-  const pickLocationHandler = useCallback((location: IPickedLocation) => {
+  const pickLocationHandler = useCallback((location: ICoordinates) => {
     setSelectedLocation(location);
   }, []);
 
   function savePlaceHandler() {
+    const id = Math.random().toString();
+
     const placeData: IPlace = new Place(
       enteredTitle,
       selectedAddress ?? "",
       selectedLocation ?? {lat: 0.141241, lng: 127.121},
-      selectedImage ?? ""
+      selectedImage ?? "",
+      id
     );
 
     console.log("placeData", placeData);
     onCreatePlace(placeData);
+
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Place Saved!",
+        body: `Your place "${enteredTitle}" has been saved successfully.`,
+      },
+      trigger: null,
+    });
   }
 
   return (
