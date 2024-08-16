@@ -34,6 +34,25 @@ export default function App() {
       });
   }, []);
 
+  useEffect(() => {
+    const subscription1 = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification);
+      }
+    );
+
+    const subscription2 = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    return () => {
+      subscription1.remove();
+      subscription2.remove();
+    };
+  }, []);
+
   if (!dbInitialized) {
     return <AppLoading />;
   }
